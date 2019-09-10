@@ -1,0 +1,10 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outFile": "../bin/types/DataAnnotations/index.js",
+        "rootDir": "./",
+    },
+    "references": [
+        { "path": "../system"}
+    ]
+}
