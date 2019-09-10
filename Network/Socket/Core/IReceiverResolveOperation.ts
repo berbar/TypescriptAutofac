@@ -6,10 +6,10 @@ namespace Network.Socket.Core
         /**
          * 调用接收器
          * @param context Socket上下文
-         * @param lifetimeScope ioc生命周期域
+         * @param lifetimeScope Autofac生命周期域
          * @param args 接收到的参数列表
          */
-        Resolve( context: CBaseContext, lifetimeScope: Ioc.ILifetimeScope, args: any[] ): void;
+        Resolve( context: CBaseContext, lifetimeScope: Autofac.ILifetimeScope, args: any[] ): void;
 
         /**
          * 监听的Socket接口名

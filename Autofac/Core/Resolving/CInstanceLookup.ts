@@ -1,5 +1,5 @@
 
-namespace Ioc.Core.Resolving
+namespace Autofac.Core.Resolving
 {
     export class CInstanceLookup implements IComponentContext, IInstanceLookup
     {

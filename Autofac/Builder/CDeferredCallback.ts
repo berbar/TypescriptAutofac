@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Builder
+namespace Autofac.Builder
 {
     export class CDeferredCallback
     {

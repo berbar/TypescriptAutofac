@@ -4,7 +4,7 @@
         // "target": "es6",
         // "experimentalDecorators": true,
         // //"outDir": "./bin",
-        "outFile": "../bin/types/ioc/index.js",
+        "outFile": "../bin/types/Autofac/index.js",
         // "alwaysStrict": true,
         // //"removeComments": true,
         // "noImplicitAny": true,
@@ -25,6 +25,6 @@
         //"sourceMap": true
     },
     "references": [
-        { "path": "../system"}
+        { "path": "../System"}
     ]
 }

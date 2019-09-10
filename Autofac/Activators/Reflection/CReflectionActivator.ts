@@ -2,7 +2,7 @@
 /// <reference path="../CInstanceActivator.ts" />
 
 
-namespace Ioc.Activators.Reflection
+namespace Autofac.Activators.Reflection
 {
     /**
      * Uses reflection to activate instances of a type.

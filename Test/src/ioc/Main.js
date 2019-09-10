@@ -88,25 +88,25 @@ __decorate([
 CTest2 = __decorate([
     __param(0, jasmine_1.default.System.Reflection.DeclaringType(TypeOf(CAni))),
     __param(0, jasmine_1.default.System.Reflection.Named("ani")),
-    __param(1, jasmine_1.default.Ioc.InjectLifetimeScope())
+    __param(1, jasmine_1.default.Autofac.InjectLifetimeScope())
 ], CTest2);
 let ss = Symbol("ss");
 console.debug(TypeOf(CTest1));
 // type s = keyof ii;
 // console.debug( s );
-let cb = new jasmine_1.default.Ioc.CContainerBuilder();
+let cb = new jasmine_1.default.Autofac.CContainerBuilder();
 cb.RegisterType(TypeOf(CTest1))
     .AsSelf().As(TypeOf(CTest))
     .Keyed(TypeOf(CTest), "1")
     .InstancePerMatchingLifetimeScope(ss)
-    .WithParameter(new jasmine_1.default.Ioc.CTypedParameter(TypeOf(CAni), new CAni("sss")));
+    .WithParameter(new jasmine_1.default.Autofac.CTypedParameter(TypeOf(CAni), new CAni("sss")));
 cb.RegisterType(TypeOf(CTest2))
     .AsSelf()
     .As(TypeOf(CTest))
     .Keyed(TypeOf(CTest), "2")
     .InstancePerMatchingLifetimeScope(ss)
     .PropertiesAutowired()
-    .WithProperty(new jasmine_1.default.Ioc.CTypedParameter(TypeOf(CAni), new CAni("with property")));
+    .WithProperty(new jasmine_1.default.Autofac.CTypedParameter(TypeOf(CAni), new CAni("with property")));
 //cb.RegisterType( TypeOf( CAni ) ).AsSelf().InstancePerLifetimeScope();
 //cb.RegisterAssemblyTypes( new System.Reflection.CAssembly( Assembly1 ) ).Where( ( t ) => t.IsEquivalentTo( Assembly1.Testing ) ).AsSelf().SingleInstance();
 cb.RegisterTypes([TypeOf(Assembly1.Testing), TypeOf(Assembly1.Assembly2.Testing2)])
@@ -127,14 +127,14 @@ console.debug(single);
 let scope1 = container.BeginLifetimeScope(ss);
 try {
     console.debug(scope1);
-    //test = scope1.ResolveKeyed( TypeOf( CTest ), "1", new Ioc.CTypedParameter( TypeOf( CAni ), new CAni( "bee" ) ) );
+    //test = scope1.ResolveKeyed( TypeOf( CTest ), "1", new Autofac.CTypedParameter( TypeOf( CAni ), new CAni( "bee" ) ) );
     test = scope1.ResolveKeyed(TypeOf(CTest), "1");
     console.debug(test);
-    test = scope1.ResolveKeyed(TypeOf(CTest), "1", new jasmine_1.default.Ioc.CTypedParameter(TypeOf(CAni), new CAni()));
+    test = scope1.ResolveKeyed(TypeOf(CTest), "1", new jasmine_1.default.Autofac.CTypedParameter(TypeOf(CAni), new CAni()));
     console.debug(test);
-    test = scope1.ResolveKeyed(TypeOf(CTest), "2", new jasmine_1.default.Ioc.CTypedParameter(TypeOf(CAni), new CAni()));
+    test = scope1.ResolveKeyed(TypeOf(CTest), "2", new jasmine_1.default.Autofac.CTypedParameter(TypeOf(CAni), new CAni()));
     console.debug(test);
-    test = scope1.ResolveKeyed(TypeOf(CTest), "2", new jasmine_1.default.Ioc.CTypedParameter(TypeOf(CAni), new CAni("gee")));
+    test = scope1.ResolveKeyed(TypeOf(CTest), "2", new jasmine_1.default.Autofac.CTypedParameter(TypeOf(CAni), new CAni("gee")));
     console.debug(test);
     single = scope1.Resolve(TypeOf(CSingle));
     console.debug(single);

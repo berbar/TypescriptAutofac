@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export class CActivatingEventArgs< T > implements IActivatingEventArgs< T >
     {

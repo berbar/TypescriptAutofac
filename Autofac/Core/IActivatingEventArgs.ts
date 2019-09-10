@@ -1,5 +1,5 @@
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export interface IActivatingEventArgs< T >
     {

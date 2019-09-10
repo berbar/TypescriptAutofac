@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Activators.ProvidedInstance
+namespace Autofac.Activators.ProvidedInstance
 {
     export class CProvidedInstanceActivator extends CInstanceActivator
     {

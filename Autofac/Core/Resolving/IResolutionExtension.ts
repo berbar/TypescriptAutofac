@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Core.Resolving
+namespace Autofac.Core.Resolving
 {
     export interface IResolutionExtension
     {

@@ -36,7 +36,7 @@ class CApplication {
         let socketContext = new jasmine_1.default.Network.Socket.CContext(socketConnection);
         let socketContextAccessor = new jasmine_1.default.Network.Socket.CContextAccessor();
         socketContextAccessor.AddSocketContext(socketContext);
-        let cb = new jasmine_1.default.Ioc.CContainerBuilder();
+        let cb = new jasmine_1.default.Autofac.CContainerBuilder();
         cb.RegisterInstance(jasmine_1.default.System.Reflection.TypeOf(jasmine_1.default.Network.Socket.CContextAccessor), socketContextAccessor);
         // TestHub接收器的类型
         let receiverTypes = new jasmine_1.default.System.Reflection.CAssembly(TestHub).GetTypes().where(t => {

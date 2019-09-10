@@ -1,14 +1,14 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
-        "outFile": "../bin/types/network/index.js",
+        "outFile": "../bin/types/Network/index.js",
         //"module": "commonjs",
         //"outDir": "../bin/types/network",
         "rootDir": "./"
         //"noResolve": false
     },
     "references": [
-        { "path": "../system" },
-        { "path": "../ioc" }
+        { "path": "../System" },
+        { "path": "../Autofac" }
     ]
 }

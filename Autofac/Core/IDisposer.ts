@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export interface IDisposer extends System.IDisposable
     {

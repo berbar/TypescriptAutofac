@@ -1,6 +1,6 @@
 
 
-// namespace Ioc.Builder
+// namespace Autofac.Builder
 // {
 //     export interface IRegistrationBuilder2< TLimit, TActivatorData extends CConcreteReflectionActivatorData, TStyle extends CSingleRegistrationStyle >
 //         extends IRegistrationBuilder< TLimit, TActivatorData, TStyle >

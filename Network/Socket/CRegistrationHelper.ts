@@ -4,9 +4,9 @@
 // {
 //     export class CRegistrationHelper
 //     {
-//         private readonly m_cb: Ioc.CContainerBuilder = null;
+//         private readonly m_cb: Autofac.CContainerBuilder = null;
 
-//         public constructor( cb: Ioc.CContainerBuilder )
+//         public constructor( cb: Autofac.CContainerBuilder )
 //         {
 //             this.m_cb = cb;
 //         }

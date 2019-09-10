@@ -2,7 +2,7 @@
 /// <reference path="./CConstantParameter.ts" />
 
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export class CNamedPropertyParameter extends CConstantParameter
     {

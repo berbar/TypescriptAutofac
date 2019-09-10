@@ -1,5 +1,5 @@
 
-namespace Ioc
+namespace Autofac
 {
     export class CModule
     {

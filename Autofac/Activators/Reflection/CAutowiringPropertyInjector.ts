@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Activators.Reflection
+namespace Autofac.Activators.Reflection
 {
     class CTypeComparer implements System.Collections.Generic.IEqualityComparer< System.Reflection.CType >
     {

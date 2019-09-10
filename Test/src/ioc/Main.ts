@@ -88,8 +88,8 @@ class CTest2 extends CTest
         @System.Reflection.Named( "ani" )
         ani: CAni,
 
-        @Ioc.InjectLifetimeScope()
-        lifetimeScope: Ioc.ILifetimeScope
+        @Autofac.InjectLifetimeScope()
+        lifetimeScope: Autofac.ILifetimeScope
     )
     {
         super( ani );
@@ -126,19 +126,19 @@ interface ii
 
 
 
-let cb = new Ioc.CContainerBuilder();
+let cb = new Autofac.CContainerBuilder();
 cb.RegisterType( TypeOf( CTest1 ) )
     .AsSelf().As( TypeOf( CTest ) )
     .Keyed( TypeOf( CTest ), "1" )
     .InstancePerMatchingLifetimeScope( ss )
-    .WithParameter( new Ioc.CTypedParameter( TypeOf( CAni ), new CAni( "sss" ) ));
+    .WithParameter( new Autofac.CTypedParameter( TypeOf( CAni ), new CAni( "sss" ) ));
 cb.RegisterType( TypeOf( CTest2 ) )
     .AsSelf()
     .As( TypeOf( CTest ) )
     .Keyed( TypeOf( CTest ), "2" )
     .InstancePerMatchingLifetimeScope( ss )
     .PropertiesAutowired()
-    .WithProperty( new Ioc.CTypedParameter( TypeOf( CAni ), new CAni( "with property" ) ) );
+    .WithProperty( new Autofac.CTypedParameter( TypeOf( CAni ), new CAni( "with property" ) ) );
 
 //cb.RegisterType( TypeOf( CAni ) ).AsSelf().InstancePerLifetimeScope();
 //cb.RegisterAssemblyTypes( new System.Reflection.CAssembly( Assembly1 ) ).Where( ( t ) => t.IsEquivalentTo( Assembly1.Testing ) ).AsSelf().SingleInstance();
@@ -172,17 +172,17 @@ let scope1 = container.BeginLifetimeScope( ss );
 try
 {
     console.debug( scope1 );
-    //test = scope1.ResolveKeyed( TypeOf( CTest ), "1", new Ioc.CTypedParameter( TypeOf( CAni ), new CAni( "bee" ) ) );
+    //test = scope1.ResolveKeyed( TypeOf( CTest ), "1", new Autofac.CTypedParameter( TypeOf( CAni ), new CAni( "bee" ) ) );
     test = scope1.ResolveKeyed( TypeOf( CTest ), "1" );
     console.debug( test );
     
-    test = scope1.ResolveKeyed( TypeOf( CTest ), "1", new Ioc.CTypedParameter( TypeOf( CAni ), new CAni() ) );
+    test = scope1.ResolveKeyed( TypeOf( CTest ), "1", new Autofac.CTypedParameter( TypeOf( CAni ), new CAni() ) );
     console.debug( test );
     
-    test = scope1.ResolveKeyed( TypeOf( CTest ), "2", new Ioc.CTypedParameter( TypeOf( CAni ), new CAni() ) );
+    test = scope1.ResolveKeyed( TypeOf( CTest ), "2", new Autofac.CTypedParameter( TypeOf( CAni ), new CAni() ) );
     console.debug( test );
     
-    test = scope1.ResolveKeyed( TypeOf( CTest ), "2", new Ioc.CTypedParameter( TypeOf( CAni ), new CAni( "gee" ) ) );
+    test = scope1.ResolveKeyed( TypeOf( CTest ), "2", new Autofac.CTypedParameter( TypeOf( CAni ), new CAni( "gee" ) ) );
     console.debug( test );
     
     

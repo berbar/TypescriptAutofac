@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export class CTypedService extends CService implements IServiceWithType
     {

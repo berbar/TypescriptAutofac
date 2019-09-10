@@ -1,6 +1,6 @@
 
 
-namespace Ioc
+namespace Autofac
 {
     @System.AttributeUsage( System.UAttributeTarget.Field, false, false )
     export class CInjectionAttribute extends System.CAttribute
