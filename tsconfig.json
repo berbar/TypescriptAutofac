@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "experimentalDecorators": true,
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "composite": true,
+        "declaration": true,
+        "lib": [
+            "dom",
+            "es6",
+        ]
+    }
+}

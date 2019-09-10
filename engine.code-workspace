@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"name": ".Gulp",
+			"path": ".Gulp"
+		},
+		{
+			"name": "System",
+			"path": "System"
+		},
+		{
+			"name": "Autofac",
+			"path": "Autofac"
+		},
+		{
+			"name": "HtmlMvc",
+			"path": "HtmlMvc"
+		},
+		{
+			"name": "Event",
+			"path": "Event"
+		},
+		{
+			"name": "AopInterception",
+			"path": "AopInterception"
+		},
+		{
+			"name": "DataAnnotations",
+			"path": "DataAnnotations"
+		},
+		{
+			"name": "Network",
+			"path": "Network"
+		},
+		{
+			"name": "Network.Socket.SignalR",
+			"path": "Network.Socket.SignalR"
+		},
+		{
+			"name": "Test",
+			"path": "Test"
+		}
+	]
+}
