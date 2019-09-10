@@ -1,7 +1,7 @@
 
 
 
-namespace Ioc.Activators.Reflection
+namespace Autofac.Activators.Reflection
 {
     export class CConstructorParameterBinding
     {

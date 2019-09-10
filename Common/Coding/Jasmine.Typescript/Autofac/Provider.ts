@@ -1,11 +1,11 @@
 
 
-namespace Ioc
+namespace Autofac
 {
     /**
      * **（接口）**
      * 
-     * IOC提供器
+     * Autofac提供器
      */
     export interface IProvider
     {

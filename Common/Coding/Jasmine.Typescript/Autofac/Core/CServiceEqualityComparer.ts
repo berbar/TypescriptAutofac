@@ -1,5 +1,5 @@
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export class CServiceEqualityComparer implements System.Collections.Generic.IEqualityComparer< CService >
     {

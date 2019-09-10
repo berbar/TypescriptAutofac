@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Core.Lifetime
+namespace Autofac.Core.Lifetime
 {
     export class CRootScopeLifetime implements IComponentLifetime
     {

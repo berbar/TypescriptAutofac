@@ -14,11 +14,11 @@ namespace Network.Socket.Core
             this.m_methodInfo = methodInfo;
         }
 
-        public Resolve( context: CBaseContext, lifetimeScope: Ioc.ILifetimeScope, args: any[] ): void
+        public Resolve( context: CBaseContext, lifetimeScope: Autofac.ILifetimeScope, args: any[] ): void
         {
-            let parameters: Ioc.Core.CParameter[] =
+            let parameters: Autofac.Core.CParameter[] =
             [
-                new Ioc.CTypedParameter( System.Reflection.TypeOf( CBaseContext ), context ),
+                new Autofac.CTypedParameter( System.Reflection.TypeOf( CBaseContext ), context ),
             ];
             let receiver = lifetimeScope.Resolve( this.m_receiverType, ...parameters );
             this.m_methodInfo.Invoke( receiver, ...args );

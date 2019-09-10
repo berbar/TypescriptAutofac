@@ -2,7 +2,7 @@
 /// <reference path="./CParameter.ts" />
 
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export abstract class CConstantParameter extends CParameter
     {

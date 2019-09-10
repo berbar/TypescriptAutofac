@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export abstract class CService implements System.IEquatable< CService >
     {

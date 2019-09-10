@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Activators.Reflection
+namespace Autofac.Activators.Reflection
 {
     export class CAutowiringParameter extends Core.CParameter
     {

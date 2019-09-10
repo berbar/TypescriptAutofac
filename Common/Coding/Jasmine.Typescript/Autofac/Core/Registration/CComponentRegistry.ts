@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Core.Registration
+namespace Autofac.Core.Registration
 {
     export class CComponentRegistry implements IComponentRegistry
     {

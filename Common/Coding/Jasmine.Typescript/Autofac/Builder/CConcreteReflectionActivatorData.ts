@@ -2,7 +2,7 @@
 /// <reference path="./CReflectionActivatorData.ts" />
 
 
-namespace Ioc.Builder
+namespace Autofac.Builder
 {
     /**
      * Reflection activator data for concrete types.

@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Activators.Delegate
+namespace Autofac.Activators.Delegate
 {
     export type UActivationFunction< T extends object = object > = ( context: IComponentContext, parameters: ReadonlyArray<Core.CParameter> ) => T;
 

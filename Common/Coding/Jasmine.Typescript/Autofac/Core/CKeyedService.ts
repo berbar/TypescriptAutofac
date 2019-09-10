@@ -2,7 +2,7 @@
 /// <reference path="./CService.ts" />
 
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export class CKeyedService extends CService implements IServiceWithType
     {

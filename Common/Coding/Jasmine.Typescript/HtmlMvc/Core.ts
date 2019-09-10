@@ -470,7 +470,7 @@ namespace Mvc
                     continue;
                 }
 
-                let attrInjectionProvider = pi.GetCustomAttributeOne( System.Reflection.TypeOf( Ioc.CInjectionProviderAttribute ) );
+                let attrInjectionProvider = pi.GetCustomAttributeOne( System.Reflection.TypeOf( Autofac.CInjectionProviderAttribute ) );
                 if ( attrInjectionProvider != null )
                 {
                     parameters[ parameterIndex ] = GetIoc();
@@ -480,14 +480,14 @@ namespace Mvc
                 let attrDeclaringType = pi.GetCustomAttributeOne( System.Reflection.TypeOf( System.Reflection.CDeclaringTypeAttribute ) );
                 if ( attrDeclaringType != null )
                 {
-                    let attrIocWithName = pi.GetCustomAttributeOne( System.Reflection.TypeOf( Ioc.CWithNameAttribute ) );
+                    let attrIocWithName = pi.GetCustomAttributeOne( System.Reflection.TypeOf( Autofac.CWithNameAttribute ) );
                     if ( attrIocWithName != null )
                     {
                         parameters[ parameterIndex ] = GetIoc().ResolveNamed( attrDeclaringType.DeclaringType, attrIocWithName.Name );
                     }
                     else
                     {
-                        let attrIocWithKey = pi.GetCustomAttributeOne( System.Reflection.TypeOf( Ioc.CWithKeyAttribute ) );
+                        let attrIocWithKey = pi.GetCustomAttributeOne( System.Reflection.TypeOf( Autofac.CWithKeyAttribute ) );
                         if ( attrIocWithKey != null )
                         {
                             parameters[ parameterIndex ] = GetIoc().ResolveKeyed( attrDeclaringType.DeclaringType, attrIocWithKey.Key );
@@ -553,7 +553,7 @@ namespace Mvc
     // }
 
     // var uViewProvider: IViewProvider = null;
-    // var uIocProvider: Ioc.IProvider = null;
+    // var uIocProvider: Autofac.IProvider = null;
 
     // export function InitializeViewProvider( provider: IViewProvider ): void
     // {
@@ -566,14 +566,14 @@ namespace Mvc
     //     return uViewProvider;
     // }
 
-    var uIocProvider: Ioc.IProvider = null;
+    var uIocProvider: Autofac.IProvider = null;
 
-    export function InitializeIoc( iocProvider: Ioc.IProvider ): void
+    export function InitializeIoc( iocProvider: Autofac.IProvider ): void
     {
         uIocProvider = iocProvider;
     }
 
-    export function GetIoc(): Ioc.IProvider
+    export function GetIoc(): Autofac.IProvider
     {
         return uIocProvider;
     }

@@ -1,6 +1,6 @@
 
 
-namespace Ioc
+namespace Autofac
 {
     @System.AttributeUsage( System.UAttributeTarget.Parameter | System.UAttributeTarget.Property, false, false )
     export class CInjectLifetimeScopeAttribute extends System.CAttribute

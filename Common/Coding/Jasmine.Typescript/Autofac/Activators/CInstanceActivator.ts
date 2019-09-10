@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Activators
+namespace Autofac.Activators
 {
     export abstract class CInstanceActivator implements Core.IInstanceActivator
     {

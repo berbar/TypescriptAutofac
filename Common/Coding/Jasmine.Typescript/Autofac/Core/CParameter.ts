@@ -1,7 +1,7 @@
 
 
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export abstract class CParameter
     {

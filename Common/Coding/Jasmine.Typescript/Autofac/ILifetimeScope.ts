@@ -1,6 +1,6 @@
 
 
-namespace Ioc
+namespace Autofac
 {
     export interface ILifetimeScope extends System.IDisposable, IComponentContext, Core.Resolving.IResolutionExtension
     {

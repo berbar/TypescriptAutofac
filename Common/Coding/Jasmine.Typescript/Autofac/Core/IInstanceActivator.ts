@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Core
+namespace Autofac.Core
 {
     export interface IInstanceActivator extends System.IDisposable
     {

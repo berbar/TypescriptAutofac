@@ -19,7 +19,7 @@ const socketConnectionSettings: Network.Socket.UConnectionSettings =
 
 class CApplication
 {
-    private m_lifetimeScope: Ioc.ILifetimeScope = null;
+    private m_lifetimeScope: Autofac.ILifetimeScope = null;
 
     public async Start(): Promise<void>
     {
@@ -43,7 +43,7 @@ class CApplication
         let socketContextAccessor = new Network.Socket.CContextAccessor();
         socketContextAccessor.AddSocketContext( socketContext );
         
-        let cb = new Ioc.CContainerBuilder();
+        let cb = new Autofac.CContainerBuilder();
         cb.RegisterInstance( System.Reflection.TypeOf( Network.Socket.CContextAccessor ), socketContextAccessor );
         cb.Register( System.Reflection.TypeOf( CTestHubContext ), ( lifetimeScope, parameters ) => {
             let socketContext = new CTestHubContext( new Network.Socket.SignalR.CSignalRConnection( socketConnectionSettings ) );

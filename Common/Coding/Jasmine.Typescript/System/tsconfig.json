@@ -15,7 +15,7 @@
         //"module": "commonjs",
         "experimentalDecorators": true,
         //"outDir": "./bin",
-        "outFile": "../bin/types/system/index.js",
+        "outFile": "../bin/types/System/index.js",
         "alwaysStrict": true,
         //"removeComments": true,
         "noImplicitAny": true,

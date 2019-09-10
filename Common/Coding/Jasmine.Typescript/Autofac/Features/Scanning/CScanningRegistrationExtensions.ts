@@ -1,6 +1,6 @@
 
 
-namespace Ioc.Features.Scanning
+namespace Autofac.Features.Scanning
 {
     export class CScanningRegistrationExtensions
     {

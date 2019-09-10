@@ -1,5 +1,5 @@
 
-namespace Ioc.Builder
+namespace Autofac.Builder
 {
     export class CScanningActivatorData extends CReflectionActivatorData implements IActivatorData
     {
