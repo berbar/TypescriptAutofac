@@ -1,4 +1,6 @@
 
+/// <reference path="./AttributeUsage.ts" />
+
 
 namespace System
 {

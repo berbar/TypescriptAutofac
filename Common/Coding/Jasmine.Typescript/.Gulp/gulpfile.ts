@@ -10,6 +10,31 @@ import { HasArgument, FindArgument } from "./src/Arguments";
 import * as Project from "./src/Project";
 import { Merge } from "./src/Merge";
 import * as Compile from "./src/Compile";
+import * as ExportsAndImports from "./src/ExportsAndImports";
+import Clean from "./src/Clean";
+
+
+type UCompileOptions =
+{
+    out: string;
+    projects: string[]
+    module: "amd" | "system";
+    mergeOneFile: boolean;
+    watch: boolean;
+};
+
+let uCompileOptions: UCompileOptions =
+{
+    out: FindArgument( "out" ),
+    projects: [],
+    module: <any>FindArgument( "module" ),
+    mergeOneFile: false,
+    watch: false
+};
+if ( uCompileOptions.out.endsWith( ".js" ) )
+{
+    uCompileOptions.mergeOneFile = true;
+}
 
 let projectNamesStr = FindArgument( "projects" );
 let projectNames: string[] = [
@@ -23,22 +48,28 @@ if ( projectNames.length == 0 )
 {
     throw new Error( "no projects" );
 }
-const uCompileOptions =
-{
-    outDir: FindArgument( "outDir" ),
-    projectNames: projectNames
-};
+// const uCompileOptions =
+// {
+//     outDir: FindArgument( "outDir" ),
+//     projectNames: projectNames
+// };
 const dirWorkspace = path.resolve( "../" );
-const dirDist = path.resolve( ( uCompileOptions.outDir == null ) ? "dist" : uCompileOptions.outDir );
+const dirDist = path.resolve( uCompileOptions.out );
 const dirBin = path.resolve( path.dirname( dirDist ), "bin" );
+Clean( dirBin, dirDist );
+fs.mkdirSync( dirBin );
+fs.mkdirSync( dirDist );
 
 const projects = Project.ScanProjects( dirWorkspace, projectNames );
 
 Compile.DefineCompileTasks( projects, dirDist );
 
+const exportFiles = ExportsAndImports.CreateExports( projectNames, dirBin );
+const importFiles = ExportsAndImports.CreateImports( projectNames );
+
 function WatchPartOf( projectName: string ): void
 {
-    const tasksMerge = Merge( projectNames, { dirBin: dirBin, dirDist: dirDist } );
+    const tasksMerge = Merge( projectNames, { dirBin: dirBin, dirDist: dirDist }, importFiles, exportFiles );
     const tasksCompile = [ Compile.GetCompileTaskName( projectName ) ];
     const tasks = tasksCompile.concat( tasksMerge );
     let glops = path.resolve( dirWorkspace, projectName, "**/*.ts" );
@@ -64,10 +95,13 @@ gulp.task( "watch", function()
 
 function CompileAll(): string[]
 {
-    const tasksMerge = Merge( projectNames, { dirBin: dirBin, dirDist: dirDist } );
+    const tasksMerge = Merge( projectNames, { dirBin: dirBin, dirDist: dirDist }, importFiles, exportFiles );
     const tasksCompile = Compile.GetCompileTasks();
     const tasks = tasksCompile.concat( tasksMerge );
     return tasks;
 }
 
-export default gulp.series( CompileAll().concat( "watch" ) );
+let tasksInit = CompileAll();
+if ( uCompileOptions.watch == true )
+    tasksInit.push( "watch" );
+export default gulp.series( tasksInit );
