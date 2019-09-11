@@ -2,7 +2,7 @@
 /// <reference path="../dist/JsArrayExtension.d.ts" />
 
 
-import Jasmine from "../dist/jasmine";
+import { System, Autofac } from "../dist/jasmine";
 
 import http = require('http');
 import * as TestHub from "./TestHub";
