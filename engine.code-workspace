@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"name": ".Gen",
+			"path": ".Gen"
+		},
+		{
 			"name": ".Gulp",
 			"path": ".Gulp"
 		},

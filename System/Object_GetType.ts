@@ -1,13 +1,6 @@
 
-/// <reference path="./Object.ts" />
+
 /// <reference path="./Reflection/Type.ts" />
-
-
-
-// namespace System
-// {
-
-// }
 
 interface Object
 {

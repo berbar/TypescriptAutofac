@@ -1,5 +1,0 @@
-
-cd ../
-
-tsc --build .\System\tsconfig.json .\Autofac\tsconfig.json .\Network\tsconfig.json .\Network.Socket.SignalR\tsconfig.json --watch --emitDeclarationOnly
-
