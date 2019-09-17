@@ -5,8 +5,6 @@
 /// <reference path="./PropertyInfo.ts" />
 /// <reference path="./ParameterInfo.ts" />
 
-/// <reference path="../Object.ts" />
-
 /// <reference path="./ICustomAttributeProvider.ts" />
 
 
@@ -472,7 +470,7 @@ namespace System.Reflection
 
         public GetCustomAttributeOne< TAttribute extends CAttribute >( attributeType: CType< TAttribute >, inherit: boolean ): TAttribute
         {
-            if ( this.IsEquivalentTo( CAttributeUsage ) == true )
+            if ( this.IsEquivalentTo( CAttributeUsageAttribute ) == true )
                 return null;
 
             if ( inherit == true )
@@ -481,9 +479,9 @@ namespace System.Reflection
                 if ( attr != null )
                     return attr;
 
-                let attrUsage = attributeType.GetCustomAttributeOne( Reflection.TypeOf( CAttributeUsage ), true );
+                let attrUsage = attributeType.GetCustomAttributeOne( Reflection.TypeOf( CAttributeUsageAttribute ), true );
                 if ( attrUsage == null )
-                    attrUsage = CAttributeUsage.DefaultUsage;
+                    attrUsage = CAttributeUsageAttribute.DefaultUsage;
 
                 if ( attrUsage.Inherited == true )
                 {
@@ -510,10 +508,10 @@ namespace System.Reflection
             if ( inherit == true )
             {
                 let attrs = this.GetCustomAttributes( attributeType, false );
-                let attrUsage = attributeType.GetCustomAttributeOne( Reflection.TypeOf( CAttributeUsage ), true );
+                let attrUsage = attributeType.GetCustomAttributeOne( Reflection.TypeOf( CAttributeUsageAttribute ), true );
                 if ( attrUsage == null )
                 {
-                    attrUsage = CAttributeUsage.DefaultUsage;
+                    attrUsage = CAttributeUsageAttribute.DefaultUsage;
                 }
                 if ( attrUsage.Inherited == true )
                 {

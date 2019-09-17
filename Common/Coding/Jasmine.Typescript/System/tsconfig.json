@@ -10,27 +10,10 @@
 // }
 
 {
+    "extends": "../tsconfig.json",
     "compilerOptions": {
-        "target": "es6",
-        //"module": "commonjs",
-        "experimentalDecorators": true,
-        //"outDir": "./bin",
         "outFile": "../bin/System/index.js",
-        "alwaysStrict": true,
-        //"removeComments": true,
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        //"noResolve": true,
-        "composite": true,
-        "declaration": true,
-        //"sourceMap": true,
-        "rootDir": "./",
-        "lib": [
-            "dom",
-            "es6"
-            // "es2015.core",
-            // "es2017.object"
-        ]
+        "module": "amd",
+        "rootDir": "./"
     }
 }

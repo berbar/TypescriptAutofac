@@ -4,6 +4,6 @@
         "outFile": "../bin/types/interception/index.js",
     },
     "references": [
-        { "path": "../system" }
+        { "path": "../System" }
     ]
 }
