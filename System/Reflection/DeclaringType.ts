@@ -1,6 +1,6 @@
 
 
-namespace System.Reflection
+namespace iberbar.System.Reflection
 {
     @AttributeUsage( UAttributeTarget.Method | UAttributeTarget.Field | UAttributeTarget.Property | UAttributeTarget.Parameter, false, false )
     export class CDeclaringTypeAttribute extends CAttribute

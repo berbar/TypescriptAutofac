@@ -1,5 +1,5 @@
 
-namespace Autofac
+namespace iberbar.Autofac
 {
     export class CModule
     {

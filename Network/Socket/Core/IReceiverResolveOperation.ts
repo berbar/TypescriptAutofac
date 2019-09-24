@@ -1,5 +1,5 @@
 
-namespace Network.Socket.Core
+namespace iberbar.Network.Socket.Core
 {
     export interface IReceiverResolveOperation extends System.IEquatable< IReceiverResolveOperation >
     {

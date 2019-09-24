@@ -1,10 +1,10 @@
 
 
-namespace Autofac.Core
+namespace iberbar.Autofac.Core
 {
     export class CActivatingEventArgs< T > implements IActivatingEventArgs< T >
     {
-        private readonly m_instance: T = null;
+        private m_instance: T = null;
 
         private readonly m_context: IComponentContext = null;
 
@@ -47,6 +47,13 @@ namespace Autofac.Core
         public get Instance(): T
         {
             return this.m_instance;
+        }
+
+        public set Instance( value: T )
+        {
+            if ( value == null )
+                throw Error( "" );
+            this.m_instance = value;
         }
     }
 }

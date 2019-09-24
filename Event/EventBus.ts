@@ -1,6 +1,6 @@
 
 
-namespace Event
+namespace iberbar.Event
 {
     export class IEventBus
     {

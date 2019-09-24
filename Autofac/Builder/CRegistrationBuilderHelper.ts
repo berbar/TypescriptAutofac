@@ -1,19 +1,19 @@
 
 
-namespace Autofac.Builder
+namespace iberbar.Autofac.Builder
 {
     export class CRegistrationBuilderHelper
     {
         public static RegisterSingleComponent(
             cr: Core.IComponentRegistry,
-            rb: IRegistrationBuilder ): void
+            rb: IRegistrationBuilder<object> ): void
         {
             let registration = this.CreateRegistrationForBuilder( rb );
             cr.Register( registration, false );
         }
 
         public static CreateRegistrationForBuilder(
-            rb: IRegistrationBuilder ): Core.IComponentRegistration
+            rb: IRegistrationBuilder<object> ): Core.IComponentRegistration
         {
             return this.CreateRegistration(
                 rb.RegistrationStyle.ID,

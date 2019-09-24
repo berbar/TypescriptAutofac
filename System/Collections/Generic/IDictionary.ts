@@ -1,6 +1,6 @@
 
 
-namespace System.Collections.Generic
+namespace iberbar.System.Collections.Generic
 {
     export interface IDictionary< TKey, TValue >
     {

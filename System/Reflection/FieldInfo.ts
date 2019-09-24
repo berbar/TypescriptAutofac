@@ -2,7 +2,7 @@
 
 
 
-namespace System.Reflection
+namespace iberbar.System.Reflection
 {
     export abstract class CFieldInfo extends CMemberInfo
     {

@@ -1,28 +1,8 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
-        // "target": "es6",
-        // "experimentalDecorators": true,
-        // //"outDir": "./bin",
-        "outFile": "../bin/types/Autofac/index.js",
-        // "alwaysStrict": true,
-        // //"removeComments": true,
-        // "noImplicitAny": true,
-        // "noImplicitReturns": true,
-        // "noImplicitThis": true,
-        // //"noResolve": true,
-        // "composite": true,
-        // "declaration": true,
-        "rootDir": "./",
-        // "lib": [
-        //     "dom",
-        //     "es6",
-        //     // "es2015.core",
-        //     // "es2015.reflect",
-        //     // "es2015.collection",
-        //     // "es2017.object"
-        // ]
-        //"sourceMap": true
+        "outFile": "../bin/Autofac/index.js",
+        "rootDir": "./"
     },
     "references": [
         { "path": "../System"}

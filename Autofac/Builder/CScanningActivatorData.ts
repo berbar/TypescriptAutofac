@@ -1,11 +1,11 @@
 
-namespace Autofac.Builder
+namespace iberbar.Autofac.Builder
 {
     export class CScanningActivatorData extends CReflectionActivatorData implements IActivatorData
     {
         private readonly m_filter: (( type: System.Reflection.CType ) => boolean)[] = [];
 
-        private readonly m_configurationActions: ( (type: System.Reflection.CType, rb: IRegistrationBuilder) => void )[] = [];
+        private readonly m_configurationActions: ( (type: System.Reflection.CType, rb: IRegistrationBuilder<object> ) => void )[] = [];
 
         public constructor()
         {

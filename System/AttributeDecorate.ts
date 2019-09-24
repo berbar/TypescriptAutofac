@@ -2,7 +2,7 @@
 /// <reference path="./CAttributeUsageAttribute.ts" />
 
 
-namespace System
+namespace iberbar.System
 {
     export function AttributeDecorate( attribute: CAttribute ): UDecoratorFunctionType
     {

@@ -1,7 +1,7 @@
 
 
 
-namespace System
+namespace iberbar.System
 {
     export class TCallback< T extends Function = any >
     {
@@ -30,7 +30,7 @@ namespace System
     {
         public callbacks: TCallback< T >[] = [];
 
-        public Add( callback: T | Array< T | TCallback< T > > )
+        public Add( callback: T | TCallback< T > | Array< T | TCallback< T > > )
         {
             if ( callback instanceof Array )
             {
@@ -45,7 +45,10 @@ namespace System
             }
             else
             {
-                this.callbacks.push( new TCallback( callback ) );
+                if ( typeof( callback ) == "function" )
+                    this.callbacks.push( new TCallback( callback ) );
+                else
+                    this.callbacks.push( callback );
             }
         }
 
@@ -78,12 +81,12 @@ interface Object
      * 构建回调函数对象
      * @param method 方法 
      */
-    __Callback< T extends Function >( method: T ): System.TCallback< T >;
+    __Callback< T extends Function >( method: T ): iberbar.System.TCallback< T >;
 }
 
-Object.prototype.__Callback = function< T extends Function >( method: T ): System.TCallback< T >
+Object.prototype.__Callback = function< T extends Function >( method: T ): iberbar.System.TCallback< T >
 {
-    return new System.TCallback( method, this );
+    return new iberbar.System.TCallback( method, this );
 }
 
 Reflect.defineProperty( Object.prototype, "__Callback", { enumerable: false } );

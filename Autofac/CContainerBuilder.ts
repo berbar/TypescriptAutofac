@@ -1,6 +1,6 @@
 
 
-namespace Autofac
+namespace iberbar.Autofac
 {
     export class CContainerBuilder
     {
@@ -10,7 +10,7 @@ namespace Autofac
         public Register< T extends object >(
             type: System.Reflection.CType< T >,
             delegate: System.Delegate< Activators.Delegate.UActivationFunction< T > >
-        ): Builder.IRegistrationBuilder
+        ): Builder.IRegistrationBuilder< T >
         {
             let rb = new Builder.CRegistrationBuilder(
                 new Core.CTypedService( System.Reflection.TypeOf( Object ) ),
@@ -24,7 +24,7 @@ namespace Autofac
             return rb;
         }
 
-        public RegisterType< T extends object >( type: System.Reflection.CType< T > ): Builder.IRegistrationBuilder
+        public RegisterType< T extends object >( type: System.Reflection.CType< T > ): Builder.IRegistrationBuilder< T >
         {
             let rb = new Builder.CRegistrationBuilder(
                 new Core.CTypedService( type ),
@@ -37,7 +37,7 @@ namespace Autofac
             return rb;
         }
 
-        public RegisterInstance< T extends object >( type: System.Reflection.CType< T >, instance: T ): Builder.IRegistrationBuilder
+        public RegisterInstance< T extends object >( type: System.Reflection.CType< T >, instance: T ): Builder.IRegistrationBuilder<T>
         {
             let activator = new Activators.ProvidedInstance.CProvidedInstanceActivator( instance );
             let rb = new Builder.CRegistrationBuilder(
@@ -69,12 +69,12 @@ namespace Autofac
          * 
          * @param assemblies 
          */
-        public RegisterAssemblyTypes( ...assemblies: System.Reflection.CAssembly[] ): Builder.IRegistrationBuilder
+        public RegisterAssemblyTypes( ...assemblies: ReadonlyArray< System.Reflection.CAssembly > ): Builder.IRegistrationBuilder<object>
         {
             return Features.Scanning.CScanningRegistrationExtensions.RegisterAssemblyTypes( this, assemblies );
         }
 
-        public RegisterTypes( types: System.Reflection.CType[] ): Builder.IRegistrationBuilder
+        public RegisterTypes( types: ReadonlyArray< System.Reflection.CType > ): Builder.IRegistrationBuilder<object>
         {
             return Features.Scanning.CScanningRegistrationExtensions.RegisterTypes( this, types );
         }

@@ -1,6 +1,6 @@
 
 
-namespace System
+namespace iberbar.System
 {
     /**
      * 特性基类

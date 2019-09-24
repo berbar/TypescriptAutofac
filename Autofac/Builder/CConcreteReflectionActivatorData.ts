@@ -2,7 +2,7 @@
 /// <reference path="./CReflectionActivatorData.ts" />
 
 
-namespace Autofac.Builder
+namespace iberbar.Autofac.Builder
 {
     /**
      * Reflection activator data for concrete types.

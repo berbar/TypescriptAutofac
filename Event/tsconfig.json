@@ -1,18 +1,7 @@
 {
+    "extends": "../tsconfig.json",
     "compilerOptions": {
-        "target": "es6",
-        "experimentalDecorators": true,
-        "outFile": "../bin/types/event/index.js",
-        "alwaysStrict": true,
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "composite": true,
-        "declaration": true,
-        "rootDir": "./",
-        "lib": [
-            "es6",
-        ]
+        "outFile": "../bin/Event/index.js",
     },
     "references": [
         { "path": "../system" }

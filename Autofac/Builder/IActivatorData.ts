@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Builder
+namespace iberbar.Autofac.Builder
 {
     export interface IActivatorData
     {

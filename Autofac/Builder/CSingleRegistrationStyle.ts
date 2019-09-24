@@ -1,5 +1,5 @@
 
-namespace Autofac.Builder
+namespace iberbar.Autofac.Builder
 {
     export class CSingleRegistrationStyle
     {

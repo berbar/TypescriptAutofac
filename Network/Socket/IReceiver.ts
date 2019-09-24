@@ -1,6 +1,6 @@
 ﻿
 
-namespace Network.Socket
+namespace iberbar.Network.Socket
 {
     /**
      * 一个类接受并处理多种消息

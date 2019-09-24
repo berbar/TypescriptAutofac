@@ -1,7 +1,7 @@
 
 /// <reference types="@aspnet/signalr" />
 
-namespace Network.Socket.SignalR
+namespace iberbar.Network.Socket.SignalR
 {
     export class CSignalRConnection extends CConnection
     {

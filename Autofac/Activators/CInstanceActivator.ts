@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Activators
+namespace iberbar.Autofac.Activators
 {
     export abstract class CInstanceActivator implements Core.IInstanceActivator
     {

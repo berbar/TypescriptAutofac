@@ -1,8 +1,8 @@
 
 
-namespace Autofac.Builder
+namespace iberbar.Autofac.Builder
 {
-    export class CRegistrationBuilder implements IRegistrationBuilder
+    export class CRegistrationBuilder<TLimit extends object> implements IRegistrationBuilder<TLimit>
     {
         protected m_registrationData: CRegistrationData = null;
         protected m_activatorData: IActivatorData = null;
@@ -39,19 +39,19 @@ namespace Autofac.Builder
             return this.m_registrationStyle;
         }
 
-        Named<TService extends object>(type: System.Reflection.CType<TService>, name: string): IRegistrationBuilder
+        Named<TService extends object>(type: System.Reflection.CType<TService>, name: string): IRegistrationBuilder<TLimit>
         {
             this.m_registrationData.AddService( new Core.CKeyedService( name, type ) );
             return this;
         }
 
-        Keyed<TService extends object>( type: System.Reflection.CType<TService>, key: any ): IRegistrationBuilder
+        Keyed<TService extends object>( type: System.Reflection.CType<TService>, key: any ): IRegistrationBuilder<TLimit>
         {
             this.m_registrationData.AddService( new Core.CKeyedService( key, type ) );
             return this;
         }
 
-        KeyedMapping< TService extends object >( type: System.Reflection.CType< TService >, servicesKeyMapping: ( type: System.Reflection.CType ) => any ): IRegistrationBuilder
+        KeyedMapping< TService extends object >( type: System.Reflection.CType< TService >, servicesKeyMapping: ( type: System.Reflection.CType ) => any ): IRegistrationBuilder<TLimit>
         {
             if ( this.m_activatorData instanceof CScanningActivatorData )
             {
@@ -65,34 +65,34 @@ namespace Autofac.Builder
             return this;
         }
 
-        As<TService extends object>(type: System.Reflection.CType<TService>): IRegistrationBuilder
+        As<TService extends object>(type: System.Reflection.CType<TService>): IRegistrationBuilder<TLimit>
         {
             this.m_registrationData.AddService( new Core.CTypedService( type ) );
             return this;
         }
 
-        AsEx( services: Core.CService[] ): IRegistrationBuilder
+        AsEx( services: Core.CService[] ): IRegistrationBuilder<TLimit>
         {
             this.m_registrationData.AddServices( services );
             return this;
         }
 
-        private __As1( serviceMapping: ( t: System.Reflection.CType ) => System.Reflection.CType ): IRegistrationBuilder
+        private __As1( serviceMapping: ( t: System.Reflection.CType ) => System.Reflection.CType ): IRegistrationBuilder<TLimit>
         {
             return this.__As2( t => new Core.CTypedService( serviceMapping( t ) ) );   
         }
 
-        private __As2( serviceMapping: ( t: System.Reflection.CType ) => Core.CService ): IRegistrationBuilder
+        private __As2( serviceMapping: ( t: System.Reflection.CType ) => Core.CService ): IRegistrationBuilder<TLimit>
         {
             return this.__As3( t => [ serviceMapping( t ) ] );
         }
 
-        private __As3( serviceMapping: ( t: System.Reflection.CType ) => Core.CService[] ): IRegistrationBuilder
+        private __As3( serviceMapping: ( t: System.Reflection.CType ) => Core.CService[] ): IRegistrationBuilder<TLimit>
         {
             return Features.Scanning.CScanningRegistrationExtensions.As( this, serviceMapping );
         }
 
-        AsSelf(): IRegistrationBuilder
+        AsSelf(): IRegistrationBuilder<TLimit>
         {
             if ( this.m_activatorData instanceof CScanningActivatorData )
             {
@@ -106,7 +106,7 @@ namespace Autofac.Builder
             return this;
         }
 
-        public Where( predicate: ( type: System.Reflection.CType ) => boolean ): IRegistrationBuilder
+        public Where( predicate: ( type: System.Reflection.CType ) => boolean ): IRegistrationBuilder<TLimit>
         {
             if ( ( this.m_activatorData instanceof Builder.CScanningActivatorData ) == false )
                 throw new Error();
@@ -116,35 +116,35 @@ namespace Autofac.Builder
             return this;
         }
 
-        SingleInstance(): IRegistrationBuilder
+        SingleInstance(): IRegistrationBuilder<TLimit>
         {
             this.m_registrationData.Sharing = Core.UInstanceSharing.Shared;
             this.m_registrationData.Lifetime = new Core.Lifetime.CRootScopeLifetime();
             return this;
         }
 
-        InstancePerDependency(): IRegistrationBuilder
+        InstancePerDependency(): IRegistrationBuilder<TLimit>
         {
             this.m_registrationData.Sharing = Core.UInstanceSharing.None;
             this.m_registrationData.Lifetime = new Core.Lifetime.CCurrentScopeLifetime();
             return this;
         }
 
-        InstancePerLifetimeScope(): IRegistrationBuilder
+        InstancePerLifetimeScope(): IRegistrationBuilder<TLimit>
         {
             this.m_registrationData.Sharing = Core.UInstanceSharing.Shared;
             this.m_registrationData.Lifetime = new Core.Lifetime.CCurrentScopeLifetime();
             return this;
         }
 
-        InstancePerMatchingLifetimeScope( ...scopeTag: ULifetimeScopeTagType[] ): IRegistrationBuilder
+        InstancePerMatchingLifetimeScope( ...scopeTag: ULifetimeScopeTagType[] ): IRegistrationBuilder<TLimit>
         {
             this.m_registrationData.Sharing = Core.UInstanceSharing.Shared;
             this.m_registrationData.Lifetime = new Core.Lifetime.CMatchingScopeLifetime( ...scopeTag );
             return this;
         }
 
-        PropertiesAutowired( propertySelector?: Core.IPropertySelector ): IRegistrationBuilder
+        PropertiesAutowired( propertySelector?: Core.IPropertySelector ): IRegistrationBuilder<TLimit>
         {
             if ( propertySelector == undefined )
             {
@@ -157,7 +157,7 @@ namespace Autofac.Builder
             return this;
         }
 
-        public WithParameter( parameter: Core.CParameter ): IRegistrationBuilder
+        public WithParameter( parameter: Core.CParameter ): IRegistrationBuilder<TLimit>
         {
             let activatorData = this.GetActivatorDataEx( CReflectionActivatorData );
             if ( activatorData != null )
@@ -167,14 +167,14 @@ namespace Autofac.Builder
             return this;
         }
 
-        public WithParameters( parameters: ReadonlyArray< Core.CParameter > ): IRegistrationBuilder
+        public WithParameters( parameters: ReadonlyArray< Core.CParameter > ): IRegistrationBuilder<TLimit>
         {
             for ( const p of parameters )
                 this.WithParameter( p );
             return this;
         }
 
-        public WithProperty( parameter: Core.CParameter ): IRegistrationBuilder
+        public WithProperty( parameter: Core.CParameter ): IRegistrationBuilder<TLimit>
         {
             let activatorData = this.GetActivatorDataEx( CReflectionActivatorData );
             if ( activatorData != null )
@@ -182,11 +182,30 @@ namespace Autofac.Builder
             return this;
         }
 
-        public WithProperties( parameters: ReadonlyArray< Core.CParameter > ): IRegistrationBuilder
+        public WithProperties( parameters: ReadonlyArray< Core.CParameter > ): IRegistrationBuilder<TLimit>
         {
             for ( const p of parameters )
                 this.WithProperty( p );
             return this;
+        }
+
+        OnActivating( callback: Core.UCallbackActivating<TLimit> ): IRegistrationBuilder<TLimit>
+        {
+            this.m_registrationData.ActivatingHandlers.Add( (s, e) =>
+            {
+                var args = new Core.CActivatingEventArgs<TLimit>(e.Context, e.Registration, e.Parameters, <TLimit>e.Instance);
+                if ( typeof( callback ) == "function" )
+                    callback( args );
+                else
+                    callback.Execute( args );
+                e.Instance = args.Instance;
+            } );
+            return this;
+        }
+
+        OnActivated(): IRegistrationBuilder<TLimit>
+        {
+            throw new Error("Method not implemented.");
         }
     }
 }

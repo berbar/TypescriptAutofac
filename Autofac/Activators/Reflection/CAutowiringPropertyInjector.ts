@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Activators.Reflection
+namespace iberbar.Autofac.Activators.Reflection
 {
     class CTypeComparer implements System.Collections.Generic.IEqualityComparer< System.Reflection.CType >
     {

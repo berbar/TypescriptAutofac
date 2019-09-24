@@ -1,7 +1,7 @@
 
 
 
-namespace Autofac.Core.Registration
+namespace iberbar.Autofac.Core.Registration
 {
     export class CComponentRegistration implements IComponentRegistration
     {
@@ -75,7 +75,7 @@ namespace Autofac.Core.Registration
             throw new Error("Method not implemented.");
         }
 
-        RaisePreparing(context: IComponentContext, parameters: System.RefParameter< Array< any > >): void
+        RaisePreparing(context: IComponentContext, parameters: Array< any >): void
         {
             throw new Error("Method not implemented.");
         }

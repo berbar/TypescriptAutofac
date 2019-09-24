@@ -2,7 +2,7 @@
 /// <reference path="./Core/CConstantParameter.ts" />
 
 
-namespace Autofac
+namespace iberbar.Autofac
 {
     export class CTypedParameter extends Core.CConstantParameter
     {

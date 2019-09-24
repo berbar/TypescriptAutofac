@@ -1,6 +1,6 @@
 
 
-namespace System
+namespace iberbar.System
 {
     export enum UAttributeTarget
     {

@@ -2,7 +2,7 @@
 /// <reference path="./MemberInfo.ts" />
 
 
-namespace System.Reflection
+namespace iberbar.System.Reflection
 {
     export abstract class CMethodBase extends CMemberInfo
     {

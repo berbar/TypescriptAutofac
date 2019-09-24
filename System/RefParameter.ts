@@ -1,5 +1,5 @@
 
-namespace System
-{
-    export type RefParameter< T > = { value: T };
-}
+// namespace iberbar.System
+// {
+//     export type RefParameter< T > = { value: T };
+// }

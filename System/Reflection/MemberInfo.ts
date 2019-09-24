@@ -1,6 +1,6 @@
 
 
-namespace System.Reflection
+namespace iberbar.System.Reflection
 {
     export type UMemberSymbol = string;
 

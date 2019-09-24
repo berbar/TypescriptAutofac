@@ -1,6 +1,6 @@
 
 
-namespace Network.Socket
+namespace iberbar.Network.Socket
 {
     export abstract class CContext implements CBaseContext
     {
@@ -8,28 +8,18 @@ namespace Network.Socket
 
         private readonly m_listeners: System.Collections.Generic.IDictionary< string, Array< Core.IReceiverResolveOperation > >;
 
-        public constructor( connection: CConnection )
+        private readonly m_lifetimeScope: Autofac.ILifetimeScope = null;
+
+        public constructor( connection: CConnection, lifetimeScope: Autofac.ILifetimeScope )
         {
             this.m_connection = connection;
+            this.m_lifetimeScope = lifetimeScope;
             this.m_listeners = new System.Collections.Generic.CDictionary( {} );
         }
 
         public get Connection(): CConnection
         {
             return this.m_connection;
-        }
-
-        private BatchListen(): void
-        {
-            this.m_listeners.Each( this.__Callback( function( this: CBaseContext, k, v )
-            {
-
-            } ) );
-        }
-
-        private ResolveReceivers(): void
-        {
-            
         }
 
         public AddReceivers( types: ReadonlyArray< System.Reflection.CType > ): void
@@ -87,10 +77,13 @@ namespace Network.Socket
         {
             this.m_listeners.Each( this.__Callback( function( this: CContext, k, v )
             {
-                this.m_connection.Listen( k, function( ...args: any[] )
+                this.m_connection.Listen( k, this.__Callback( function( this: CContext, ...args: any[] )
                 {
-
-                })
+                    for ( const resolveOperation of v )
+                    {
+                        resolveOperation.Resolve( this, this.m_lifetimeScope, args );
+                    }
+                }) );
             } ) );
         }
     }
