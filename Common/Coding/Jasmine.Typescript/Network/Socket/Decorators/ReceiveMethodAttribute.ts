@@ -1,6 +1,6 @@
 ﻿
 
-namespace Network.Socket.Decorators
+namespace iberbar.Network.Socket.Decorators
 {
     export class CReceiveMethodAttribute extends System.CAttribute
     {

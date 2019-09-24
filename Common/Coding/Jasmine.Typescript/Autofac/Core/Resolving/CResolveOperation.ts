@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Core.Resolving
+namespace iberbar.Autofac.Core.Resolving
 {
     export class CResolveOperation implements IComponentContext, IResolveOperation
     {

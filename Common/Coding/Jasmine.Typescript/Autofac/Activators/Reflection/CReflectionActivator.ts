@@ -2,7 +2,7 @@
 /// <reference path="../CInstanceActivator.ts" />
 
 
-namespace Autofac.Activators.Reflection
+namespace iberbar.Autofac.Activators.Reflection
 {
     /**
      * Uses reflection to activate instances of a type.
@@ -99,11 +99,11 @@ namespace Autofac.Activators.Reflection
                 {
                     let propertyInfo = actualProperties[ i ];
                     let setter = propertyInfo.GetSetMethod();
-                    let valueProvider: System.OutParameter< () => object > = { __out: null };
-                    if ( configuredProperty.CanSupplyValue( setter.GetParameters()[ 0 ], context, valueProvider ) )
+                    let canSupplyValue = configuredProperty.CanSupplyValue( setter.GetParameters()[ 0 ], context );
+                    if ( canSupplyValue.ret == true )
                     {
                         actualProperties.splice( i, 1 );
-                        propertyInfo.SetValue( instance, valueProvider.__out() );
+                        propertyInfo.SetValue( instance, canSupplyValue.valueProvider );
                         break;
                     }
                 }

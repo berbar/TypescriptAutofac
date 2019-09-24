@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Core.Lifetime
+namespace iberbar.Autofac.Core.Lifetime
 {
     export class CLifetimeScope implements ISharingLifetimeScope
     {
@@ -93,47 +93,47 @@ namespace Autofac.Core.Lifetime
 
         Resolve<TService extends object>( type: System.Reflection.CType<TService>, ...parameters: CParameter[] ): TService
         {
-            let instance: System.OutParameter< object > = { __out: null };
-            let succeed = this.TryResolveService( new CTypedService( type ), parameters, instance );
-            if ( succeed == false )
+            let ret = this.TryResolveService( new CTypedService( type ), parameters );
+            if ( ret.succeed == false )
             {
                 throw new Error();
             }
-            return <TService>instance.__out;
+            return <TService>ret.instance;
         }
 
         ResolveNamed<TService extends object>( type: System.Reflection.CType<TService>, name: string, ...parameters: CParameter[] ): TService
         {
-            let instance: System.OutParameter< object > = { __out: null };
-            let succeed = this.TryResolveService( new CKeyedService( name, type ), parameters, instance );
-            if ( succeed == false )
+            let ret = this.TryResolveService( new CKeyedService( name, type ), parameters );
+            if ( ret.succeed == false )
             {
                 throw new Error();
             }
-            return <TService>instance.__out;
+            return <TService>ret.instance;
         }
 
         ResolveKeyed<TService extends object, TKey>( type: System.Reflection.CType<TService>, key: TKey, ...parameters: CParameter[] ): TService
         {
-            let instance: System.OutParameter< object > = { __out: null };
-            let succeed = this.TryResolveService( new CKeyedService( key, type ), parameters, instance );
-            if ( succeed == false )
+            let ret = this.TryResolveService( new CKeyedService( key, type ), parameters );
+            if ( ret.succeed == false )
             {
                 throw new Error();
             }
-            return <TService>instance.__out;
+            return <TService>ret.instance;
         }
 
-        private TryResolveService( service: CService, parameters: CParameter[], instance: System.OutParameter< object > ): boolean
+        private TryResolveService( service: CService, parameters: CParameter[] ): { succeed: boolean, instance?: object }
         {
             let registration = this.ComponentRegistry.GetRegistration( service );
             if ( registration == null )
             {
-                instance.__out = null;
-                return false;
+                return {
+                    succeed: false
+                };
             }
-            instance.__out = this.ResolveComponent( registration, parameters );
-            return true;
+            return {
+                succeed: true,
+                instance: this.ResolveComponent( registration, parameters )
+            };
         }
 
         public Dispose(): void

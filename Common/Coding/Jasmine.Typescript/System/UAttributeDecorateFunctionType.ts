@@ -1,6 +1,6 @@
 
 
-namespace System
+namespace iberbar.System
 {
     export type UDecoratorFunctionType_ForClass = ClassDecorator;
     export type UDecoratorFunctionType_ForField = PropertyDecorator;

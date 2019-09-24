@@ -1,6 +1,6 @@
 
 
-namespace Autofac
+namespace iberbar.Autofac
 {
     export interface IKey
     {

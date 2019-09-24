@@ -1,6 +1,6 @@
 
 
-namespace System.Metadata
+namespace iberbar.System.Metadata
 {
     export class CMetadataContainerBuilder
     {

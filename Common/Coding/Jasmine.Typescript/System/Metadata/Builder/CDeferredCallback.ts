@@ -1,5 +1,5 @@
 
-namespace System.Metadata.Builder
+namespace iberbar.System.Metadata.Builder
 {
     export class CDeferredCallback
     {

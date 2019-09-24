@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Core
+namespace iberbar.Autofac.Core
 {
     export class CTypedService extends CService implements IServiceWithType
     {

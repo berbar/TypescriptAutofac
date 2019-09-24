@@ -1,5 +1,5 @@
 
-namespace System.Metadata
+namespace iberbar.System.Metadata
 {
     export interface IMetadataContainer
     {

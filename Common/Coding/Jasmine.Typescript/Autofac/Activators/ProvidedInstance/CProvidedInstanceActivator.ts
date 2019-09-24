@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Activators.ProvidedInstance
+namespace iberbar.Autofac.Activators.ProvidedInstance
 {
     export class CProvidedInstanceActivator extends CInstanceActivator
     {

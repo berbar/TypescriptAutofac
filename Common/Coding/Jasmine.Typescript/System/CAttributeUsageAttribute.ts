@@ -3,7 +3,7 @@
 /// <reference path="./UAttributeTarget.ts" />
 
 
-namespace System
+namespace iberbar.System
 {
     export class CAttributeUsageAttribute extends CAttribute
     {

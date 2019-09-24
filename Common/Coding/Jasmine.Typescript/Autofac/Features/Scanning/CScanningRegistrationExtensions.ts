@@ -1,10 +1,10 @@
 
 
-namespace Autofac.Features.Scanning
+namespace iberbar.Autofac.Features.Scanning
 {
     export class CScanningRegistrationExtensions
     {
-        public static RegisterAssemblyTypes( containerBuilder: CContainerBuilder, assemblies: System.Reflection.CAssembly[] ): Builder.IRegistrationBuilder
+        public static RegisterAssemblyTypes( containerBuilder: CContainerBuilder, assemblies: ReadonlyArray< System.Reflection.CAssembly > ): Builder.IRegistrationBuilder<object>
         {
             let rb = new Builder.CRegistrationBuilder(
                 new Core.CTypedService( System.Reflection.TypeOf( Object ) ),
@@ -17,7 +17,7 @@ namespace Autofac.Features.Scanning
             return rb;
         }
 
-        public static RegisterTypes( containerBuilder: CContainerBuilder, types: System.Reflection.CType[] ): Builder.IRegistrationBuilder
+        public static RegisterTypes( containerBuilder: CContainerBuilder, types: ReadonlyArray< System.Reflection.CType > ): Builder.IRegistrationBuilder<object>
         {
             let rb = new Builder.CRegistrationBuilder(
                 new Core.CTypedService( System.Reflection.TypeOf( Object ) ),
@@ -30,7 +30,7 @@ namespace Autofac.Features.Scanning
             return rb;
         }
 
-        private static ScanAssemblies( assemblies: System.Reflection.CAssembly[], componentRegistry: Core.IComponentRegistry, registrationBuilder: Builder.IRegistrationBuilder ): void
+        private static ScanAssemblies( assemblies: ReadonlyArray< System.Reflection.CAssembly >, componentRegistry: Core.IComponentRegistry, registrationBuilder: Builder.IRegistrationBuilder<object> ): void
         {
             let types: System.Reflection.CType[] = [];
             for ( const assembly of assemblies )
@@ -40,7 +40,7 @@ namespace Autofac.Features.Scanning
             this.ScanTypes( types, componentRegistry, registrationBuilder );
         }
 
-        private static ScanTypes( types: System.Reflection.CType[], componentRegistry: Core.IComponentRegistry, registrationBuilder: Builder.IRegistrationBuilder ): void
+        private static ScanTypes( types: ReadonlyArray< System.Reflection.CType >, componentRegistry: Core.IComponentRegistry, registrationBuilder: Builder.IRegistrationBuilder<object> ): void
         {
             let activatorData: Builder.CScanningActivatorData = <Builder.CScanningActivatorData>registrationBuilder.ActivatorData;
             let filters = activatorData.Filters;
@@ -74,7 +74,7 @@ namespace Autofac.Features.Scanning
             }
         }
 
-        public static As( registrationBuilder: Builder.IRegistrationBuilder, serviceMapping: ( t: System.Reflection.CType ) => Core.CService[] ): Builder.IRegistrationBuilder
+        public static As( registrationBuilder: Builder.IRegistrationBuilder<object>, serviceMapping: ( t: System.Reflection.CType ) => Core.CService[] ): Builder.IRegistrationBuilder<object>
         {
             let activatorData: Builder.CScanningActivatorData = <Builder.CScanningActivatorData>registrationBuilder.ActivatorData;
             activatorData.ConfigurationActions.push( function( type, rb )

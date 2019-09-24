@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Core
+namespace iberbar.Autofac.Core
 {
     export interface IInstanceActivator extends System.IDisposable
     {

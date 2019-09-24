@@ -1,7 +1,7 @@
 
 
 
-namespace Autofac.Activators.Reflection
+namespace iberbar.Autofac.Activators.Reflection
 {
     export class CConstructorParameterBinding
     {
@@ -29,10 +29,10 @@ namespace Autofac.Activators.Reflection
                 let foundValue = false;
                 for ( const param of availableParameters )
                 {
-                    let valueRetriever: System.OutParameter< () => object > = { __out: null };
-                    if ( param.CanSupplyValue( pi, context, valueRetriever ) == true )
+                    let canSupplyValue = param.CanSupplyValue( pi, context );
+                    if ( canSupplyValue.ret == true )
                     {
-                        this.m_valueRetrievers[ i ] = valueRetriever.__out;
+                        this.m_valueRetrievers[ i ] = canSupplyValue.valueProvider;
                         foundValue = true;
                         break;
                     }

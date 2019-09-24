@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Core.Registration
+namespace iberbar.Autofac.Core.Registration
 {
     export class CServiceRegistrationInfo
     {

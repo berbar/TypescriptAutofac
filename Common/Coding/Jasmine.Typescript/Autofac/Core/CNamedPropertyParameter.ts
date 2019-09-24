@@ -2,7 +2,7 @@
 /// <reference path="./CConstantParameter.ts" />
 
 
-namespace Autofac.Core
+namespace iberbar.Autofac.Core
 {
     export class CNamedPropertyParameter extends CConstantParameter
     {

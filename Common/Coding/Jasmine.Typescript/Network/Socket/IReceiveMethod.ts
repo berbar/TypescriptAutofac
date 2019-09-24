@@ -2,7 +2,7 @@
 /// <reference path="./Decorators/ReceiveMethodAttribute.ts" />
 
 
-namespace Network.Socket
+namespace iberbar.Network.Socket
 {
     /**
      * 一个类只接受并处理一种消息

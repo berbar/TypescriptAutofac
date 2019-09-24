@@ -1,5 +1,5 @@
 
-namespace System.Metadata.Core
+namespace iberbar.System.Metadata.Core
 {
     export class CMetadataKeyForParameter extends CMetadataKey
     {

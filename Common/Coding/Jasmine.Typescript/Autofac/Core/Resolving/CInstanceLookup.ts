@@ -1,5 +1,5 @@
 
-namespace Autofac.Core.Resolving
+namespace iberbar.Autofac.Core.Resolving
 {
     export class CInstanceLookup implements IComponentContext, IInstanceLookup
     {

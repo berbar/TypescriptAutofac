@@ -1,5 +1,5 @@
 
-namespace Autofac.Builder
+namespace iberbar.Autofac.Builder
 {
     export class CRegistrationData
     {
@@ -12,7 +12,7 @@ namespace Autofac.Builder
 
         private m_deferredCallback: CDeferredCallback = null;
 
-        private readonly m_activatingHandlers: System.TCallbackArray< ( sender: any, e: Core.IActivatingEventArgs<object> ) => void > = new System.TCallbackArray();
+        private readonly m_activatingHandlers: System.TCallbackArray< ( sender: any, e: Core.CActivatingEventArgs<object> ) => void > = new System.TCallbackArray();
 
         public constructor( defaultService: Core.CService )
         {
@@ -68,7 +68,7 @@ namespace Autofac.Builder
             return this.m_deferredCallback;
         }
 
-        public get ActivatingHandlers(): System.TCallbackArray< ( sender: any, e: Core.IActivatingEventArgs<object> ) => void >
+        public get ActivatingHandlers(): System.TCallbackArray< ( sender: any, e: Core.CActivatingEventArgs<object> ) => void >
         {
             return this.m_activatingHandlers;
         }

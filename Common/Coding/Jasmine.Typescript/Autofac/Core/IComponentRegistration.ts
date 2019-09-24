@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Core
+namespace iberbar.Autofac.Core
 {
     export interface IComponentRegistration extends System.IDisposable
     {
@@ -20,7 +20,7 @@ namespace Autofac.Core
 
         readonly Preparing: any;
 
-        RaisePreparing( context: IComponentContext, parameters: System.RefParameter< Array< any > > ): void;
+        RaisePreparing( context: IComponentContext, parameters: Array< any > ): void;
 
         readonly Activating: System.TCallbackArray< ( sender: any, e: Core.IActivatingEventArgs<object> ) => void >;
 

@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Core
+namespace iberbar.Autofac.Core
 {
     export abstract class CService implements System.IEquatable< CService >
     {

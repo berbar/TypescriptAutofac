@@ -1,5 +1,5 @@
 
-namespace System.Reflection
+namespace iberbar.System.Reflection
 {
     @AttributeUsage( UAttributeTarget.Parameter, false, false )
     export class CNamedAttribute extends CAttribute

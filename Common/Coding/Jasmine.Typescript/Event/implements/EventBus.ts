@@ -1,6 +1,6 @@
 
 
-namespace Event.Implements
+namespace iberbar.Event.Implements
 {
     type UEventDelegate =
     {

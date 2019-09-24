@@ -2,7 +2,7 @@
 /// <reference path="./CService.ts" />
 
 
-namespace Autofac.Core
+namespace iberbar.Autofac.Core
 {
     export class CKeyedService extends CService implements IServiceWithType
     {

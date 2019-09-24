@@ -1,15 +1,14 @@
 
 
 
-namespace Autofac.Core
+namespace iberbar.Autofac.Core
 {
     export abstract class CParameter
     {
         public abstract CanSupplyValue(
             pi: System.Reflection.CParameterInfo,
-            context: IComponentContext,
-            valueProvider: System.OutParameter< () => object >
-        ) : boolean;
+            context: IComponentContext
+        ): { ret: boolean, valueProvider?: () => object }
     }
 }
 

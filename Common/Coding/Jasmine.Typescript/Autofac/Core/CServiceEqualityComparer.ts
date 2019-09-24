@@ -1,5 +1,5 @@
 
-namespace Autofac.Core
+namespace iberbar.Autofac.Core
 {
     export class CServiceEqualityComparer implements System.Collections.Generic.IEqualityComparer< CService >
     {

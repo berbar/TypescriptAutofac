@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Core.Lifetime
+namespace iberbar.Autofac.Core.Lifetime
 {
     export class CRootScopeLifetime implements IComponentLifetime
     {

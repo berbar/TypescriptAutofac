@@ -2,7 +2,7 @@
 /// <reference path="./CMetadataCollection.ts" />
 
 
-namespace System.Metadata.Core
+namespace iberbar.System.Metadata.Core
 {
     export class CMetadataContainer implements IMetadataContainer, Collections.Generic.IEqualityComparer<CMetadataKey>
     {

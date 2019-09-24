@@ -1,7 +1,7 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
-        "outFile": "../bin/types/Network.Socket.SignalR/index.js",
+        "outFile": "../bin/Network.Socket.SignalR/index.js",
         "rootDir": "./"
     },
     "references": [

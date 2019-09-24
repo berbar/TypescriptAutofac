@@ -1,5 +1,5 @@
 
-namespace System.Reflection
+namespace iberbar.System.Reflection
 {
     export enum UMemberTypes
     {

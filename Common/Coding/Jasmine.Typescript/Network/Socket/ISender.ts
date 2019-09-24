@@ -1,6 +1,6 @@
 ﻿
 
-namespace Network.Socket
+namespace iberbar.Network.Socket
 {
     export interface ISender
     {

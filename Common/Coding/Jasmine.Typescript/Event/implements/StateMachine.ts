@@ -1,6 +1,6 @@
 
 
-namespace Event.Implements
+namespace iberbar.Event.Implements
 {
     export class CStateMachine extends IStateMachine
     {

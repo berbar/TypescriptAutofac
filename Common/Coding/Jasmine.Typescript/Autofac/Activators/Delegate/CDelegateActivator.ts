@@ -1,6 +1,6 @@
 
 
-namespace Autofac.Activators.Delegate
+namespace iberbar.Autofac.Activators.Delegate
 {
     export type UActivationFunction< T extends object = object > = ( context: IComponentContext, parameters: ReadonlyArray<Core.CParameter> ) => T;
 

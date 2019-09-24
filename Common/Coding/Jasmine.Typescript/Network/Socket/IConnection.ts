@@ -1,6 +1,6 @@
 
 
-namespace Network.Socket
+namespace iberbar.Network.Socket
 {
     export abstract class CConnection
     {
@@ -14,7 +14,7 @@ namespace Network.Socket
 
         public abstract Reconnect(): void;
 
-        public abstract Listen( methodName: string, listener: ( ...args: any [] ) => void | System.TCallback< ( ...args: any [] ) => void > ): void;
+        public abstract Listen( methodName: string, listener: ( ( ...args: any [] ) => any ) | System.TCallback< ( ...args: any [] ) => any > ): void;
 
         public abstract get Settings(): UConnectionSettings;
     }

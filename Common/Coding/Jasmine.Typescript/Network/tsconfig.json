@@ -1,11 +1,8 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
-        "outFile": "../bin/types/Network/index.js",
-        //"module": "commonjs",
-        //"outDir": "../bin/types/network",
+        "outFile": "../bin/Network/index.js",
         "rootDir": "./"
-        //"noResolve": false
     },
     "references": [
         { "path": "../System" },
