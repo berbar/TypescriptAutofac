@@ -4,7 +4,7 @@ namespace iberbar.Network.Socket
 {
     export abstract class CConnection
     {
-        public abstract Send( methodName: string, ...args: any[] ): Promise< any >;
+        public abstract Send<T extends (...args: any) => any>( methodName: string, ...args: Parameters<T> ): Promise< ReturnType<T> >;
 
         public abstract async SendSync( methodName: string, ...args: any[] ): Promise<any>;
 

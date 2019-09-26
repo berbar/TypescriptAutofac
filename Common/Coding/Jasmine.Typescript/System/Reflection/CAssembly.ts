@@ -18,6 +18,9 @@ namespace iberbar.System.Reflection
 
         private GetTypesInternal( obj: any ): CType[]
         {
+            let js_typeof = typeof( obj );
+            if ( js_typeof != "object" )
+                return [];
             let types: CType[] = [];
             for ( const k in obj )
             {
