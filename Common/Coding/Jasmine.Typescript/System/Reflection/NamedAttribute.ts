@@ -1,4 +1,9 @@
 
+/// <reference path="../UAttributeTarget.ts" />
+/// <reference path="../CAttribute.ts" />
+/// <reference path="../AttributeUsage.ts" />
+
+
 namespace iberbar.System.Reflection
 {
     @AttributeUsage( UAttributeTarget.Parameter, false, false )

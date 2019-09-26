@@ -1,5 +1,8 @@
 
+
 /// <reference path="./CAttributeUsageAttribute.ts" />
+/// <reference path="./Object_GetType.ts" />
+
 
 
 namespace iberbar.System
