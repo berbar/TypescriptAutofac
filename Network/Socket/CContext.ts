@@ -51,9 +51,9 @@ namespace iberbar.Network.Socket
                         methodName = methodInfo.Name;
                     }
 
-                    let collection = this.m_listeners.Get( attrReceiveMethod.Name );
+                    let collection = this.m_listeners.Get( methodName );
                     if ( collection == null )
-                        this.m_listeners.Add( attrReceiveMethod.Name, collection = [] );
+                        this.m_listeners.Add( methodName, collection = [] );
                     collection.push( new Core.CReceiverResolveOperation( type, methodName, methodInfo ) );
                 }
             }
@@ -63,7 +63,7 @@ namespace iberbar.Network.Socket
                 if ( methodInfo == null )
                     return;
 
-                if ( attrReceiveMethod.Name == null )
+                if ( attrReceiveMethod.Name == null || attrReceiveMethod.Name.length == 0 )
                     return;
 
                 let collection = this.m_listeners.Get( attrReceiveMethod.Name );

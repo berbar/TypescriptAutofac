@@ -37,13 +37,13 @@ namespace iberbar.Network.Socket.SignalR
             });
         }
 
-        Reconnect(): void
+        public Reconnect(): void
         {
         }
 
-        public Send( methodName: string, ...args: any[] ): Promise< any >
+        public Send<T extends (...args: any) => any>( methodName: string, ...args: Parameters<T> ): Promise< ReturnType<T> >
         {
-            return this.m_connection.invoke( methodName, ...args );
+            return this.m_connection.invoke( methodName, ...<any[]>args );
         }
 
         public async SendSync( methodName: string, ...args: any[] ): Promise<any>

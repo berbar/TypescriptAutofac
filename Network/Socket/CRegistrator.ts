@@ -2,6 +2,9 @@
 
 namespace iberbar.Network.Socket
 {
+    /**
+     * 用于注册到Ioc容器
+     */
     export class CRegistrator
     {
         private readonly m_cb: Autofac.CContainerBuilder = null;
@@ -12,10 +15,18 @@ namespace iberbar.Network.Socket
             this.m_cb.RegisterType( System.Reflection.TypeOf( CContextAccessor ) ).AsSelf().SingleInstance();
         }
     
+        /**
+         * 注册Socket上下文类型
+         * @param contextType 上下文类型
+         * @param connection socket连接实例
+         * @param receiversTypes 接收器类型集合
+         */
         public Add< TContext extends iberbar.Network.Socket.CContext >(
             contextType: iberbar.System.Reflection.CType< TContext >,
             connection: iberbar.Network.Socket.CConnection,
-            receiversTypes: ReadonlyArray< iberbar.System.Reflection.CType > ): void
+            receiversTypes: ReadonlyArray< iberbar.System.Reflection.CType >,
+            //autoConnectWhenResolved?: boolean
+        ): void
         {
             this.m_cb
                 .RegisterType( contextType )
@@ -30,6 +41,20 @@ namespace iberbar.Network.Socket
                     contextAccessor.AddSocketContext( e.Instance );
                     e.Instance.AddReceivers( receiversTypes );
                     e.Instance.BindReceivers();
+                    // if ( autoConnectWhenResolved == true )
+                    // {
+                    //     e.Instance.Connection.Connect()
+                    //         .then( function()
+                    //         {
+
+                    //         }).catch( function()
+                    //         {
+
+                    //         }).finally( function()
+                    //         {
+
+                    //         });
+                    // }
                 });
     
             this.m_cb
@@ -38,6 +63,10 @@ namespace iberbar.Network.Socket
                 .InstancePerDependency();
         }
 
+        /**
+         * 搜索JS模块中的接收器类型集合
+         * @param assembly JS模块
+         */
         public FindReceiverTypes( assembly: System.Reflection.CAssembly ): Array< System.Reflection.CType >
         {
             return assembly.GetTypes().where( t =>
