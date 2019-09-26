@@ -1,5 +1,6 @@
 
 /// <reference path="./CAttributeUsageAttribute.ts" />
+/// <reference path="./AttributeDecorate.ts" />
 
 
 namespace iberbar.System

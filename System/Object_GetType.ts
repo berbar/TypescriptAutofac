@@ -2,6 +2,7 @@
 
 /// <reference path="./Reflection/Type.ts" />
 
+
 interface Object
 {
     GetType(): iberbar.System.Reflection.CType< Object >;
@@ -18,6 +19,3 @@ Object.prototype.GetType = function(): iberbar.System.Reflection.CType< Object >
 Reflect.defineProperty( Object.prototype, "GetType", { enumerable: false } );
 
 
-
-const TypeOf = iberbar.System.Reflection.TypeOf;
-const DeclaringType = iberbar.System.Reflection.DeclaringType;

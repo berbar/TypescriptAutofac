@@ -15,5 +15,14 @@
         "outFile": "../bin/System/index.js",
         "module": "amd",
         "rootDir": "./"
-    }
+    },
+    "exclude": [
+        "./JsArrayExtension.d.ts"
+    ],
+    "include": [
+        "./Collections/**/*",
+        "./Metadata/**/*",
+        "./Reflection/**/*",
+        "./*"
+    ]
 }
