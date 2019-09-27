@@ -1,0 +1,13 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "composite": true
+    },
+    "references": [
+        { "path": "../System" },
+        { "path": "../Autofac" },
+        { "path": "../Network" },
+        { "path": "../Network.Socket.SignalR" },
+        { "path": "../Event" }
+    ]
+}

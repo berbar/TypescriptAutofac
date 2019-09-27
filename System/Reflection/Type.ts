@@ -212,6 +212,8 @@ namespace iberbar.System.Reflection
         public abstract GetCustomAttributesAll(): CAttribute[];
 
         public abstract IsDefined< TAttribute extends CAttribute >( attributeType: CType< TAttribute >, inherit: boolean ): boolean;
+
+        //public abstract Cast( o: any ): T;
     }
 
     class CRuntimeType< T extends object = object > extends CType< T >
