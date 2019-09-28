@@ -129,7 +129,7 @@ namespace iberbar.Mvc
         }
     }
 
-    export class CView
+    export abstract class CView
     {
         protected m_elementRoot: JQuery = null;
 
@@ -541,7 +541,7 @@ namespace iberbar.Mvc
         } >;
     }
 
-    export class CViewController
+    export abstract class CViewController
     {
 
     };
@@ -566,14 +566,14 @@ namespace iberbar.Mvc
     //     return uViewProvider;
     // }
 
-    var uIocProvider: Autofac.IProvider = null;
+    var uIocProvider: Autofac.ILifetimeScope = null;
 
-    export function InitializeIoc( iocProvider: Autofac.IProvider ): void
+    export function InitializeIoc( iocProvider: Autofac.ILifetimeScope ): void
     {
         uIocProvider = iocProvider;
     }
 
-    export function GetIoc(): Autofac.IProvider
+    export function GetIoc(): Autofac.ILifetimeScope
     {
         return uIocProvider;
     }

@@ -3,7 +3,7 @@
 
 namespace iberbar.System
 {
-    export class TCallback< T extends Function = any >
+    export class TCallback< T extends (...args: any) => any >
     {
         // handler: any;
         // process: T;
@@ -17,20 +17,25 @@ namespace iberbar.System
             this.m_executable = process.bind( handler );
         }
 
-        public get Execute(): T
+        // public get Execute(): T
+        // {
+        //     return this.m_executable;
+        // }
+
+        public Execute( ...args: Parameters<T> ): ReturnType<T>
         {
-            return this.m_executable;
+            return this.m_executable( ...<any[]>args );
         }
     };
 
-    export type Delegate< T extends Function > = T | TCallback< T > ;
+    export type Delegate< T extends (...args: any) => any > = T | TCallback< T > ;
 
 
-    export class TCallbackArray< T extends Function >
+    export class TCallbackArray< T extends (...args: any) => any >
     {
         public callbacks: TCallback< T >[] = [];
 
-        public Add( callback: T | TCallback< T > | Array< T | TCallback< T > > )
+        public Add( callback: Delegate< T > | Array< Delegate< T > > )
         {
             if ( callback instanceof Array )
             {
@@ -52,20 +57,17 @@ namespace iberbar.System
             }
         }
 
-        public get Execute(): T
+        public Execute( ...args: Parameters<T> ): void
         {
-            return <any>function( this: TCallbackArray< T >, ...args: any[] ): any
+            if ( this.callbacks != null && this.callbacks.length > 0 )
             {
-                if ( this.callbacks != null && this.callbacks.length > 0 )
+                for ( const cb of this.callbacks )
                 {
-                    for ( const cb of this.callbacks )
-                    {
-                        if ( cb == null )
-                            continue;
-                        cb.Execute( ...args );
-                    }
+                    if ( cb == null )
+                        continue;
+                    cb.Execute( ...args );
                 }
-            }.bind( this );
+            }
         }
     };
 
@@ -81,10 +83,10 @@ interface Object
      * 构建回调函数对象
      * @param method 方法 
      */
-    __Callback< T extends Function >( method: T ): iberbar.System.TCallback< T >;
+    __Callback< T extends ( ...args: any[] ) => any >( method: T ): iberbar.System.TCallback< T >;
 }
 
-Object.prototype.__Callback = function< T extends Function >( method: T ): iberbar.System.TCallback< T >
+Object.prototype.__Callback = function< T extends ( ...args: any[] ) => any >( method: T ): iberbar.System.TCallback< T >
 {
     return new iberbar.System.TCallback( method, this );
 }
