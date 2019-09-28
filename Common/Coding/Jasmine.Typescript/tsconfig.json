@@ -8,6 +8,7 @@
         "noImplicitThis": true,
         "composite": true,
         "declaration": true,
+        "importHelpers": true,
         "lib": [
             "dom",
             "es6",
