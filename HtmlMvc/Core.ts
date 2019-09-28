@@ -1,6 +1,6 @@
 
 
-namespace Mvc
+namespace iberbar.Mvc
 {
     var uAllocateID: number = 0;
     export function AllocateID(): string

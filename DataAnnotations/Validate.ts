@@ -1,5 +1,5 @@
 
-namespace DataAnnotations
+namespace iberbar.DataAnnotations
 {
     export function Validate( data: object ): { fieldName: string, errorText: string }
     {
