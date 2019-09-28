@@ -1,6 +1,6 @@
 
 
-namespace Mvc
+namespace iberbar.Mvc
 {
     export namespace Attributes
     {

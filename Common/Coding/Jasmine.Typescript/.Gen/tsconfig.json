@@ -8,6 +8,8 @@
         { "path": "../Autofac" },
         { "path": "../Network" },
         { "path": "../Network.Socket.SignalR" },
-        { "path": "../Event" }
+        { "path": "../Event" },
+        { "path": "../HtmlMvc" },
+        { "path": "../DataAnnotations" }
     ]
 }

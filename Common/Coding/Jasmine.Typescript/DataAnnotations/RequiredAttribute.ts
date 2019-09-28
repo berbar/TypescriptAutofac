@@ -3,7 +3,7 @@
 /// <reference path="./ValidationAttribute.ts" />
 
 
-namespace DataAnnotations
+namespace iberbar.DataAnnotations
 {
     export namespace Core
     {

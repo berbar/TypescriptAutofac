@@ -1,7 +1,7 @@
 
 
 
-namespace DataAnnotations
+namespace iberbar.DataAnnotations
 {
     export namespace Core
     {

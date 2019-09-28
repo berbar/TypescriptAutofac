@@ -2,14 +2,11 @@
     "extends": "../tsconfig.json",
     "compilerOptions": {
         
-        "outFile": "../bin/types/mvc/index.js",
-        // "sourceMap": true,
-        // "mapRoot": "./",
-        // "inlineSourceMap": true,
-        // "inlineSources": true
+        "outFile": "../bin/HtmlMvc/index.js",
+        "rootDir": "./"
     },
     "references": [
-        { "path": "../system" },
-        { "path": "../ioc"}
+        { "path": "../System" },
+        { "path": "../Autofac"}
     ]
 }

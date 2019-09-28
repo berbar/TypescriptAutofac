@@ -1,6 +1,6 @@
 
 
-namespace DataAnnotations
+namespace iberbar.DataAnnotations
 {
     export class CValidationContext
     {
