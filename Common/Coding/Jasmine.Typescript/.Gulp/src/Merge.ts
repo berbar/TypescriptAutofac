@@ -17,7 +17,7 @@ export function Merge( projectNames: string[], options: { dirBin: string, dirDis
         }
         for ( const projectName of projectNames )
         {
-            srcList.push( path.join( options.dirBin, "types", projectName, "index.js" ) );
+            srcList.push( path.join( options.dirBin, projectName, "index.js" ) );
         }
         for ( const f of exportFiles.javascript )
         {
@@ -38,7 +38,7 @@ export function Merge( projectNames: string[], options: { dirBin: string, dirDis
         }
         for ( const projectName of projectNames )
         {
-            srcList.push( path.join( options.dirBin, "types", projectName, "index.d.ts" ) );
+            srcList.push( path.join( options.dirBin, projectName, "index.d.ts" ) );
         }
         for ( const f of exportFiles.typescript )
         {

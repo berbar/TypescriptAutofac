@@ -67,16 +67,21 @@ namespace iberbar.Network.Socket
          * 搜索JS模块中的接收器类型集合
          * @param assembly JS模块
          */
-        public FindReceiverTypes( assembly: System.Reflection.CAssembly ): Array< System.Reflection.CType >
+        public FindReceiverTypes( ...assemblies: ReadonlyArray< System.Reflection.CAssembly > ): Array< System.Reflection.CType >
         {
-            return assembly.GetTypes().where( t =>
+            let types: Array< System.Reflection.CType > = Array();
+            for ( const assembly of assemblies )
             {
-                    if ( t.IsInheritFrom( System.Reflection.TypeOf( Network.Socket.CReceiver ) ) )
-                    return true;
-                if ( t.GetMethodOne( "OnReceived" ) != null )
-                    return true;
-                return false;
-            });
+                types = types.concat( assembly.GetTypes().where( t =>
+                {
+                        if ( t.IsInheritFrom( System.Reflection.TypeOf( Network.Socket.CReceiver ) ) )
+                        return true;
+                    if ( t.GetMethodOne( "OnReceived" ) != null )
+                        return true;
+                    return false;
+                }) );
+            }
+            return types;
         }
     }
 }

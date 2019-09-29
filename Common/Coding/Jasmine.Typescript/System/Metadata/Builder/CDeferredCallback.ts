@@ -1,12 +1,12 @@
 
-namespace iberbar.System.Metadata.Builder
-{
-    export class CDeferredCallback
-    {
+// namespace iberbar.System.Metadata.Builder
+// {
+//     export class CDeferredCallback
+//     {
         
-        public constructor( callback: ( registry: Core.IMetadataRegistry ) => void )
-        {
+//         public constructor( callback: ( registry: Core.IMetadataRegistry ) => void )
+//         {
 
-        }
-    }
-}
+//         }
+//     }
+// }
