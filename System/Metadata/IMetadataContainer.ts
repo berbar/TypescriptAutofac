@@ -5,7 +5,6 @@ namespace iberbar.System.Metadata
     {
         GetOrAddCollection( key: Core.CMetadataKey ): IMetadataCollection;
 
-
         GetCollection( key: Core.CMetadataKey ): IMetadataCollectionReadonly;
     }
 }

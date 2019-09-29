@@ -5,4 +5,6 @@
 # .\node_modules\.bin\babel .\types\event\index.js --out-file ..\..\..\Server\A1\wwwroot\lib\jasmine\event.js --plugins=@babel/plugin-transform-for-of,@babel/plugin-transform-typeof-symbol --presets=@babel/preset-env
 # .\node_modules\.bin\babel .\types\helper\index.js --out-file ..\..\..\Server\A1\wwwroot\lib\jasmine\helper.js --plugins=@babel/plugin-transform-for-of,@babel/plugin-transform-typeof-symbol --presets=@babel/preset-env
 
+# 需要把babel的内容安装到.bin相关目录
+
 .\node_modules\.bin\babel ..\bin\ -d ..\dist\browser\

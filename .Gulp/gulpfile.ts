@@ -21,6 +21,7 @@ type UCompileOptions =
     module: "amd" | "system";
     mergeOneFile: boolean;
     watch: boolean;
+    platform: "browser" | "nodejs";
 };
 
 let uCompileOptions: UCompileOptions =
@@ -29,7 +30,8 @@ let uCompileOptions: UCompileOptions =
     projects: [],
     module: <any>FindArgument( "module" ),
     mergeOneFile: false,
-    watch: false
+    watch: false,
+    platform: "browser"
 };
 if ( uCompileOptions.out.endsWith( ".js" ) )
 {

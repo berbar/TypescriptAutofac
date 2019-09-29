@@ -18,13 +18,14 @@ export type UImports =
 export function CreateExports( projectNames: readonly string[], dirBin: string ): UExports
 {
     let exportsNamespaces: string[] = [];
-    for ( const pn of projectNames )
-    {
-        let n = pn.split( "." )[ 0 ];
-        if ( exportsNamespaces.indexOf( n ) >= 0 )
-            continue;
-        exportsNamespaces.push( pn );
-    }
+    // for ( const pn of projectNames )
+    // {
+    //     let n = pn.split( "." )[ 0 ];
+    //     if ( exportsNamespaces.indexOf( n ) >= 0 )
+    //         continue;
+    //     exportsNamespaces.push( pn );
+    // }
+    exportsNamespaces.push( "iberbar" );
 
     console.debug( "export namespace %O", exportsNamespaces );
 
@@ -49,6 +50,15 @@ export function CreateExports( projectNames: readonly string[], dirBin: string )
             exportsNamespacesTypescript
         ]
     };
+
+    // return {
+    //     javascript: [
+    //         ""
+    //     ],
+    //     typescript: [
+    //         ""
+    //     ]
+    // }
 }
 
 
