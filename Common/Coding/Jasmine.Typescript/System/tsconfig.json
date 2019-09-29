@@ -17,7 +17,8 @@
         "rootDir": "./"
     },
     "exclude": [
-        "./JsArrayExtension.d.ts"
+        "./JsArrayExtension.d.ts",
+        "./__CommonJs"
     ],
     "include": [
         "./Collections/**/*",
