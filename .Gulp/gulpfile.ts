@@ -6,12 +6,39 @@ import * as concat from "gulp-concat";
 import * as ts from "gulp-typescript";
 import * as uglify from "gulp-uglify";
 import * as gulpWatch from "gulp-watch";
-import { HasArgument, FindArgument } from "./src/Arguments";
+import { HasArgument, FindArgument, ArgumentName, IArgumentCollection, CArgumnetsCollection, ArgumentEnumValue } from "./src/Arguments";
 import * as Project from "./src/Project";
 import { Merge } from "./src/Merge";
 import * as Compile from "./src/Compile";
-import * as ExportsAndImports from "./src/ExportsAndImports";
+import { CExportsAndImports } from "./src/ExportsAndImports";
 import Clean from "./src/Clean";
+import iberbar, { TypeOf, DeclaringType } from "../dist/commonjs/jasmine";
+
+
+
+
+class CCompileOptions
+{
+    @DeclaringType( TypeOf( String ) )
+    @ArgumentName( "out" )
+    out: string = null;
+
+    @DeclaringType( TypeOf( String ) )
+    @ArgumentName( "module" )
+    @ArgumentEnumValue( "amd", "commonjs" )
+    module: "amd" | "commonjs" = "amd";
+
+    @DeclaringType( TypeOf( Boolean ) )
+    @ArgumentName( "watch" )
+    watch: boolean = false;
+
+    @DeclaringType( TypeOf( Array ), [ TypeOf( String ) ] )
+    projects: Array< string > = null;
+}
+
+let argumentReflector: IArgumentCollection = new CArgumnetsCollection( process.argv );
+let uCompileOptionsNew = argumentReflector.ReflectObject( TypeOf( CCompileOptions ) );
+console.log( uCompileOptionsNew )
 
 
 type UCompileOptions =
@@ -66,8 +93,14 @@ const projects = Project.ScanProjects( dirWorkspace, projectNames );
 
 Compile.DefineCompileTasks( projects, dirDist );
 
-const exportFiles = ExportsAndImports.CreateExports( projectNames, dirBin );
-const importFiles = ExportsAndImports.CreateImports( projectNames );
+let uExportsAndImports = new CExportsAndImports();
+uExportsAndImports.ProjectNames = projectNames;
+uExportsAndImports.DirBin = dirBin;
+uExportsAndImports.DirWorkspace = dirWorkspace;
+const exportFiles = uExportsAndImports.CreateExports();
+const importFiles = uExportsAndImports.CreateImports();
+console.debug( exportFiles );
+console.debug( importFiles );
 
 function WatchPartOf( projectName: string ): void
 {
