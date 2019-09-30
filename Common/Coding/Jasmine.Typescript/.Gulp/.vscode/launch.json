@@ -8,10 +8,11 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\test\\main.ts",
+            "program": "${workspaceFolder}\\gulpfile.ts",
             "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+                "${workspaceFolder}/bin/.Gulp/**/*.js"
+            ],
+            "sourceMaps": true
         }
     ]
 }

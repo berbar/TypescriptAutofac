@@ -6,40 +6,37 @@ import * as concat from "gulp-concat";
 import * as ts from "gulp-typescript";
 import * as uglify from "gulp-uglify";
 import * as gulpWatch from "gulp-watch";
-import { HasArgument, FindArgument, ArgumentName, IArgumentCollection, CArgumnetsCollection, ArgumentEnumValue } from "./src/Arguments";
+import { HasArgument, FindArgument, CArgumnetsCollection, IArgumentCollection as IArgumentsCollection } from "./src/Arguments";
 import * as Project from "./src/Project";
 import { Merge } from "./src/Merge";
 import * as Compile from "./src/Compile";
 import { CExportsAndImports } from "./src/ExportsAndImports";
 import Clean from "./src/Clean";
-import iberbar, { TypeOf, DeclaringType } from "../dist/commonjs/jasmine";
+//import iberbar, { TypeOf, DeclaringType } from "../dist/commonjs/jasmine";
+
+import "../System/JsArrayExtension";
 
 
+// class CCompileOptions
+// {
+//     @DeclaringType( TypeOf( String ) )
+//     @ArgumentName( "out" )
+//     out: string = null;
 
+//     @DeclaringType( TypeOf( String ) )
+//     @ArgumentName( "module" )
+//     @ArgumentEnumValue( "amd", "commonjs" )
+//     module: "amd" | "commonjs" = "amd";
 
-class CCompileOptions
-{
-    @DeclaringType( TypeOf( String ) )
-    @ArgumentName( "out" )
-    out: string = null;
+//     @DeclaringType( TypeOf( Boolean ) )
+//     @ArgumentName( "watch" )
+//     watch: boolean = false;
 
-    @DeclaringType( TypeOf( String ) )
-    @ArgumentName( "module" )
-    @ArgumentEnumValue( "amd", "commonjs" )
-    module: "amd" | "commonjs" = "amd";
+//     @DeclaringType( TypeOf( Array ), [ TypeOf( String ) ] )
+//     projects: Array< string > = null;
+// }
 
-    @DeclaringType( TypeOf( Boolean ) )
-    @ArgumentName( "watch" )
-    watch: boolean = false;
-
-    @DeclaringType( TypeOf( Array ), [ TypeOf( String ) ] )
-    projects: Array< string > = null;
-}
-
-let argumentReflector: IArgumentCollection = new CArgumnetsCollection( process.argv );
-let uCompileOptionsNew = argumentReflector.ReflectObject( TypeOf( CCompileOptions ) );
-console.log( uCompileOptionsNew )
-
+let uArgvCollection: IArgumentsCollection = new CArgumnetsCollection( process.argv );
 
 type UCompileOptions =
 {
@@ -51,28 +48,25 @@ type UCompileOptions =
     platform: "browser" | "nodejs";
 };
 
+// 获取编译选项
 let uCompileOptions: UCompileOptions =
 {
-    out: FindArgument( "out" ),
-    projects: [],
-    module: <any>FindArgument( "module" ),
+    out: uArgvCollection.FindStrings( "out", true ).firstOrDefault(),
+    projects: uArgvCollection.FindStrings( "project", false ),
+    module: <any>uArgvCollection.FindStrings( "module", true ).firstOrDefault(),
     mergeOneFile: false,
-    watch: false,
-    platform: "browser"
+    watch: uArgvCollection.FindBoolean( "watch" ),
+    platform: <any>uArgvCollection.FindStrings( "platform", false ).firstOrDefault()
 };
 if ( uCompileOptions.out.endsWith( ".js" ) )
 {
     uCompileOptions.mergeOneFile = true;
 }
+console.log( "--编译选项：" );
+console.log( uCompileOptions );
+console.log( "\n" );
 
-let projectNamesStr = FindArgument( "projects" );
-let projectNames: string[] = [
-    // "system",
-    // "ioc",
-    // "network"
-];
-projectNames = ( projectNamesStr == null || projectNamesStr == "" ) ? projectNames : projectNamesStr.split( ":" );
-console.debug( projectNames );
+let projectNames = uCompileOptions.projects
 if ( projectNames.length == 0 )
 {
     throw new Error( "no projects" );
@@ -99,8 +93,12 @@ uExportsAndImports.DirBin = dirBin;
 uExportsAndImports.DirWorkspace = dirWorkspace;
 const exportFiles = uExportsAndImports.CreateExports();
 const importFiles = uExportsAndImports.CreateImports();
+console.log( "--将要合并的导出文件列表" );
 console.debug( exportFiles );
+console.log( "\n" );
+console.log( "--将要合并的导入文件列表" );
 console.debug( importFiles );
+console.log( "\n" );
 
 function WatchPartOf( projectName: string ): void
 {
