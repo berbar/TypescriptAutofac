@@ -1,56 +1,58 @@
 /// <reference path="../../System/JsArrayExtension.d.ts" />
 
 
-import iberbar from "../../dist/commonjs/jasmine";
+//import iberbar from "../../dist/commonjs/jasmine";
 
 
 
 export interface IArgumentCollection
 {
-    ReflectObject<T extends object>( t: iberbar.System.Reflection.CType<T> ): T;
+    FindStrings( name: string, findOne: boolean ): Array< string >;
+    FindNumbers( name: string, findOne: boolean ): Array< number >;
+    FindBoolean( name: string ): boolean;
 }
 
-export class CArgumentNameAttribute extends iberbar.System.CAttribute
-{
-    private readonly m_name: string = null;
+// export class CArgumentNameAttribute extends iberbar.System.CAttribute
+// {
+//     private readonly m_name: string = null;
 
-    public constructor( name: string )
-    {
-        super();
-        this.m_name = name;
-    }
+//     public constructor( name: string )
+//     {
+//         super();
+//         this.m_name = name;
+//     }
 
-    public get Name(): string
-    {
-        return this.m_name;
-    }
-}
+//     public get Name(): string
+//     {
+//         return this.m_name;
+//     }
+// }
 
-export function ArgumentName( name: string ): iberbar.System.UDecoratorFunctionType_ForProperty & iberbar.System.UDecoratorFunctionType_ForField
-{
-    return iberbar.System.AttributeDecorate( new CArgumentNameAttribute( name ) );
-}
+// export function ArgumentName( name: string ): iberbar.System.UDecoratorFunctionType_ForProperty & iberbar.System.UDecoratorFunctionType_ForField
+// {
+//     return iberbar.System.AttributeDecorate( new CArgumentNameAttribute( name ) );
+// }
 
-export class CArgumentEnumValueAttribute extends iberbar.System.CAttribute
-{
-    private readonly m_values: Array< string > = Array();
+// export class CArgumentEnumValueAttribute extends iberbar.System.CAttribute
+// {
+//     private readonly m_values: Array< string > = Array();
 
-    public constructor( values: Array< string > )
-    {
-        super();
-        this.m_values = values;
-    }
+//     public constructor( values: Array< string > )
+//     {
+//         super();
+//         this.m_values = values;
+//     }
 
-    public get Values(): ReadonlyArray< string >
-    {
-        return this.m_values;
-    }
-}
+//     public get Values(): ReadonlyArray< string >
+//     {
+//         return this.m_values;
+//     }
+// }
 
-export function ArgumentEnumValue( ...values: Array< string > ): iberbar.System.UDecoratorFunctionType_ForProperty & iberbar.System.UDecoratorFunctionType_ForField
-{
-    return iberbar.System.AttributeDecorate( new CArgumentEnumValueAttribute( values ) );
-}
+// export function ArgumentEnumValue( ...values: Array< string > ): iberbar.System.UDecoratorFunctionType_ForProperty & iberbar.System.UDecoratorFunctionType_ForField
+// {
+//     return iberbar.System.AttributeDecorate( new CArgumentEnumValueAttribute( values ) );
+// }
 
 export class CArgumnetsCollection implements IArgumentCollection
 {
@@ -61,83 +63,83 @@ export class CArgumnetsCollection implements IArgumentCollection
         this.m_argv = argv;
     }
 
-    public ReflectObject<T extends object>( t: iberbar.System.Reflection.CType ): T
-    {
-        let collection = t.GetConstructor().Invoke();
-        let fields = t.GetFields();
-        for ( const fi of fields )
-        {
-            this.ReflectProperty( collection, fi );
-        }
-        let properties = t.GetFields();
-        for ( const pi of properties )
-        {
-            this.ReflectProperty( collection, pi );
-        }
-        return <T>collection;
-    }
+    // public ReflectObject<T extends object>( t: iberbar.System.Reflection.CType ): T
+    // {
+    //     let collection = t.GetConstructor().Invoke();
+    //     let fields = t.GetFields();
+    //     for ( const fi of fields )
+    //     {
+    //         this.ReflectProperty( collection, fi );
+    //     }
+    //     let properties = t.GetFields();
+    //     for ( const pi of properties )
+    //     {
+    //         this.ReflectProperty( collection, pi );
+    //     }
+    //     return <T>collection;
+    // }
 
-    private ReflectProperty( collection: object, pi: iberbar.System.Reflection.CFieldInfo | iberbar.System.Reflection.CPropertyInfo ): void
-    {
-        let nameAttr = pi.GetCustomAttributeOne( iberbar.System.Reflection.TypeOf( CArgumentNameAttribute ) );
-        if ( nameAttr == null )
-            return;
+    // private ReflectProperty( collection: object, pi: iberbar.System.Reflection.CFieldInfo | iberbar.System.Reflection.CPropertyInfo ): void
+    // {
+    //     let nameAttr = pi.GetCustomAttributeOne( iberbar.System.Reflection.TypeOf( CArgumentNameAttribute ) );
+    //     if ( nameAttr == null )
+    //         return;
 
-        let typeAttr = pi.GetCustomAttributeOne( iberbar.System.Reflection.TypeOf( iberbar.System.Reflection.CDeclaringTypeAttribute ) );
-        if ( typeAttr == null )
-            return;
+    //     let typeAttr = pi.GetCustomAttributeOne( iberbar.System.Reflection.TypeOf( iberbar.System.Reflection.CDeclaringTypeAttribute ) );
+    //     if ( typeAttr == null )
+    //         return;
 
-        let pv: Array< any > = null;
-        let findOne = false;
-        let argumentType: iberbar.System.Reflection.CType = null;
-        if ( typeAttr.DeclaringType.IsEquivalentTo( Array ) )
-        {
-            findOne = true;
-            argumentType = typeAttr.GenericTypes.firstOrDefault();
-        }
-        else
-        {
-            argumentType = typeAttr.DeclaringType;
-        }
+    //     let pv: Array< any > = null;
+    //     let findOne = false;
+    //     let argumentType: iberbar.System.Reflection.CType = null;
+    //     if ( typeAttr.DeclaringType.IsEquivalentTo( Array ) )
+    //     {
+    //         findOne = true;
+    //         argumentType = typeAttr.GenericTypes.firstOrDefault();
+    //     }
+    //     else
+    //     {
+    //         argumentType = typeAttr.DeclaringType;
+    //     }
 
-        if ( argumentType.IsEquivalentTo( String ) )
-        {
-            pv = this.FindStrings( nameAttr.Name, findOne );
-        }
-        else if ( argumentType.IsEquivalentTo( Number ) )
-        {
-            pv = this.FindNumbers( nameAttr.Name, findOne );
-        }
-        else if ( argumentType.IsEquivalentTo( Boolean ) )
-        {
-            pv = [ this.FindBoolean( nameAttr.Name ) ];
-        }
+    //     if ( argumentType.IsEquivalentTo( String ) )
+    //     {
+    //         pv = this.FindStrings( nameAttr.Name, findOne );
+    //     }
+    //     else if ( argumentType.IsEquivalentTo( Number ) )
+    //     {
+    //         pv = this.FindNumbers( nameAttr.Name, findOne );
+    //     }
+    //     else if ( argumentType.IsEquivalentTo( Boolean ) )
+    //     {
+    //         pv = [ this.FindBoolean( nameAttr.Name ) ];
+    //     }
 
-        if ( findOne == true )
-        {
-            pi.SetValue( collection, pv.firstOrDefault() );
-        }
-        else
-        {
-            pi.SetValue( collection, pv );
-        }
-    }
+    //     if ( findOne == true )
+    //     {
+    //         pi.SetValue( collection, pv.firstOrDefault() );
+    //     }
+    //     else
+    //     {
+    //         pi.SetValue( collection, pv );
+    //     }
+    // }
 
-    private FindStrings( name: string, findOne: boolean ): Array< string >
+    public FindStrings( name: string, findOne: boolean ): Array< string >
     {
         let array: Array< string > = Array();
         this.Find( name, v => array.push( v ), findOne );
         return array;
     }
 
-    private FindNumbers( name: string, findOne: boolean ): Array< number >
+    public FindNumbers( name: string, findOne: boolean ): Array< number >
     {
         let array: Array< number > = Array();
         this.Find( name, v => array.push( Number( v ) ), findOne );
         return array;
     }
 
-    private FindBoolean( name: string ): boolean
+    public FindBoolean( name: string ): boolean
     {
         let foundValue: boolean = false;
         this.Find( name, v => foundValue = true, true );
@@ -150,13 +152,9 @@ export class CArgumnetsCollection implements IArgumentCollection
         for ( let i = 0; i < this.m_argv.length; i ++ )
         {
             let a = this.m_argv[ i ];
-            if ( a.startsWith( "--" ) && a == "--" + name )
+            if ( a == "--" + name )
             {
                 if ( (i+1) < this.m_argv.length )
-                {
-                    action( null );
-                }
-                else
                 {
                     let b = this.m_argv[ i + 1 ];
                     if ( b.startsWith( "--" ) )
@@ -167,6 +165,10 @@ export class CArgumnetsCollection implements IArgumentCollection
                     {
                         action( b );
                     }
+                }
+                else
+                {
+                    action( null );
                 }
                 foundValue = true;
             }
