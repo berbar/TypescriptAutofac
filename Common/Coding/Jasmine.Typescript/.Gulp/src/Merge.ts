@@ -27,10 +27,12 @@ export function Merge( env: IEnvs, importFiles: UImports, exportFiles: UExports 
         }
         let babelCompiler = new CBabelHelper().GetCompiler();
         
-        return gulp.src( srcList )
-            .pipe( concat( "iberbar/index.js" ) )
-            .pipe( babelCompiler )
-            .pipe( gulp.dest( env.DirDist ) );
+        let taskCore = gulp.src( srcList ).pipe( concat( "iberbar/index.js" ) );
+        if ( env.CompileOptions.Platform == UCompilePlatform.Browser )
+        {
+            taskCore.pipe( babelCompiler );
+        }
+        taskCore.pipe( gulp.dest( env.DirDist ) );
     }
     
     function MergeDeclarationFiles()
