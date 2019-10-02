@@ -5,12 +5,36 @@ import { ProjectNode } from "./Project";
 import { IEnvs } from "./Env";
 import ts = require( "typescript" );
 import * as gulpts from  "gulp-typescript";
+import * as gulpbabel from "gulp-babel";
+import { CBabelHelper } from "./Babel";
 
-const tasks: string[] = [];
+const gTasks: string[] = [];
 
 export function GetCompileTaskName( projectName: string ): string
 {
     return "compile-" + projectName;
+}
+
+export function GetCompileTasks( projectNames?: string | ReadonlyArray< string > ): Array< string >
+{
+    let tasks = Array<string>();
+    if ( projectNames == undefined )
+        tasks = gTasks;
+    else
+    {
+        if ( typeof( projectNames ) == "string" )
+            tasks.push( "compile-" + projectNames );
+        else
+        {
+            for ( const n of projectNames )
+            {
+                tasks.push( "compile-", n );
+            }
+        }
+    }
+
+    //tasks.push( "compile-babel" );
+    return tasks;
 }
 
 
@@ -23,14 +47,28 @@ export function DefineCompileTasks( projects: ProjectNode[], env: IEnvs ): void
         gulp.task( taskName, function()
         {
             return projectNode.tsProject.src()
-                .pipe(projectNode.tsProject( gulpts.reporter.defaultReporter() ))
-                .pipe(gulp.dest( "./" ) )
+                .pipe( projectNode.tsProject( gulpts.reporter.defaultReporter() ) )
+                //.pipe( babelCompiler )
+                .pipe( gulp.dest( "./" ) )
         });
-        tasks.push( taskName );
+        gTasks.push( taskName );
     }
+
+    // let babelCompiler = gulpbabel({
+    //     presets: ['@babel/env'],
+    //     plugins: [
+    //         "@babel/plugin-transform-for-of",
+    //         "@babel/plugin-transform-typeof-symbol"
+    //     ]
+    // });
+    // let babelSrc = path.resolve( env.DirBin, "**", "*.js" );
+    // gulp.task( "compile-babel", () =>
+    // {
+    //     return gulp.src( babelSrc ).pipe( babelCompiler ).pipe( gulp.dest( path.resolve( env.DirBin ) ) );
+    // });
 }
 
-export function GetCompileTasks(): string[]
-{
-    return tasks;
-}
+// export function GetCompileTasks(): string[]
+// {
+//     return tasks;
+// }

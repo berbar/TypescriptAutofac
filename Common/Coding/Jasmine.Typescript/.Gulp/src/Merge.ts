@@ -6,6 +6,7 @@ import * as gulp from "gulp";
 import * as concat from "gulp-concat";
 import { UImports, UExports } from "./ExportsAndImports";
 import { IEnvs, UCompilePlatform } from "./Env";
+import { CBabelHelper } from "./Babel";
 
 export function Merge( env: IEnvs, importFiles: UImports, exportFiles: UExports ): string[]
 {
@@ -24,9 +25,11 @@ export function Merge( env: IEnvs, importFiles: UImports, exportFiles: UExports 
         {
             srcList.push( f );
         }
+        let babelCompiler = new CBabelHelper().GetCompiler();
         
         return gulp.src( srcList )
             .pipe( concat( "iberbar/index.js" ) )
+            .pipe( babelCompiler )
             .pipe( gulp.dest( env.DirDist ) );
     }
     
