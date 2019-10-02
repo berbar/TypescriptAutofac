@@ -43,7 +43,7 @@ class CCompileOptions implements ICompileOptions
     public constructor( argvCollection: IArgumentCollection )
     {
         this.m_out = argvCollection.FindStrings( "out", true ).firstOrDefault();
-        this.m_projects = argvCollection.FindStrings( "project", false );
+        this.m_projects = argvCollection.FindStrings( "projects", true ).firstOrDefault().split( "," );
         this.m_watch = argvCollection.FindBoolean( "watch" );
         this.m_platform = <any>argvCollection.FindStrings( "platform", false ).firstOrDefault();
         if ( this.m_platform == null )
