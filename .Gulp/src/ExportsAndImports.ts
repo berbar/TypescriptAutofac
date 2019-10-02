@@ -1,6 +1,7 @@
 
 import * as path from "path";
 import * as fs from "fs";
+import { IEnvs, UCompilePlatform } from "./Env";
 
 
 export type UExports =
@@ -23,6 +24,16 @@ export class CExportsAndImports
 
     public DirWorkspace: string = null;
 
+    private readonly m_env: IEnvs = null;
+
+    public constructor( envs: IEnvs )
+    {
+        this.ProjectNames = envs.CompileOptions.Projects;
+        this.DirBin = envs.DirBin;
+        this.DirWorkspace = envs.DirWorkspace;
+        this.m_env = envs;
+    }
+
     public CreateExports(): UExports
     {
         let exportsCache: UExports =
@@ -31,11 +42,14 @@ export class CExportsAndImports
             typescript: []
         }
 
-        for ( const pn of this.ProjectNames )
+        if ( this.m_env.CompileOptions.Platform == UCompilePlatform.NodeJS )
         {
-            this.FindCommonJS( exportsCache, pn );
+            for ( const pn of this.ProjectNames )
+            {
+                this.FindCommonJS( exportsCache, pn );
+            }
+            this.FindCommonJS( exportsCache, ".Gulp" );
         }
-        this.FindCommonJS( exportsCache, ".Gulp" );
 
         return exportsCache;
     }
@@ -55,6 +69,7 @@ export class CExportsAndImports
             return;
         let pathExportsTS = path.resolve( pathCommonJs, "Exports.d.ts" );
         let pathExportsJS = path.resolve( pathCommonJs, "Exports.js" );
+
         if ( fs.existsSync( pathExportsTS ) && fs.existsSync( pathExportsTS ) )
         {
             exportsCache.javascript.push( pathExportsJS );

@@ -9,7 +9,7 @@ export type ProjectNode = {
 };
 
 
-export function ScanProjects( dirWorkspace: string, projectNames: string[] ): ProjectNode[]
+export function ScanProjects( dirWorkspace: string, projectNames: ReadonlyArray< string > ): ProjectNode[]
 {
     let projects: ProjectNode[] = [];
     for ( const projectName of projectNames )
