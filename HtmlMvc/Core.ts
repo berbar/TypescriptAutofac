@@ -143,8 +143,8 @@ namespace iberbar.Mvc
             let attrSetController = this.GetType().GetCustomAttributeOne( System.Reflection.TypeOf( Attributes.SetControllerAttribute ), false );
             if ( attrSetController != null )
             {
-                let controllerConstructor = attrSetController.ControllerType.GetJsConstructor();
-                this.m_controller = new controllerConstructor();
+                let controllerConstructor = attrSetController.ControllerType.GetConstructor();
+                this.m_controller = controllerConstructor.Invoke();
             }
         }
 

@@ -1,6 +1,8 @@
 
 import * as path from "path";
+import * as fs from "fs";
 import { CArgumnetsCollection, IArgumentCollection } from "./Arguments";
+import { DeleteFolder } from "./Clean";
 
 
 export enum UCompilePlatform
@@ -26,6 +28,7 @@ export interface IEnvs
     readonly DirWorkspace: string;
     readonly DirDist: string;
     readonly CompileOptions: ICompileOptions;
+    Cleanup(): void;
 }
 
 
@@ -118,6 +121,14 @@ class CEnvs implements IEnvs
     public get CompileOptions(): ICompileOptions
     {
         return this.m_compileOptions;
+    }
+
+    public Cleanup(): void
+    {
+        if ( fs.existsSync( this.m_dirDist ) )
+            DeleteFolder( this.m_dirDist );
+        if ( fs.existsSync( this.m_dirBin ) )
+            DeleteFolder( this.m_dirBin );
     }
 
     public toString(): string

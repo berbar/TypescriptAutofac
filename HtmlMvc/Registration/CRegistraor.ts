@@ -11,13 +11,12 @@ namespace iberbar.Mvc.Registration
             this.m_builder = builder;
         }
 
-        public RegisterViewsAndControllers( ...assemblies: System.Reflection.CAssembly[] ): void
+        public RegisterViews( ...assemblies: System.Reflection.CAssembly[] ): void
         {
             const vt = TypeOf( CView );
-            const ct = TypeOf( CViewController );
-            this.m_builder.RegisterAssemblyTypes( ...assemblies ).Where( t => t.IsInheritFrom( ct ) ).AsSelf().InstancePerDependency();
             let viewTypes_SingleInstance: Array< System.Reflection.CType > = Array();
             let viewTypes_Transient: Array< System.Reflection.CType > = Array();
+            let viewTypes: Array< System.Reflection.CType >;
             assemblies.forEach( assembly =>
             {
                 let types = assembly.GetTypes();
@@ -33,6 +32,26 @@ namespace iberbar.Mvc.Registration
             } );
             this.m_builder.RegisterTypes( viewTypes_SingleInstance ).AsSelf().SingleInstance();
             this.m_builder.RegisterTypes( viewTypes_Transient ).AsSelf().InstancePerDependency();
+            for ( const t of viewTypes )
+            {
+                this.RegisterViewsWhereDependOn( <System.Reflection.CType<CView>>t );
+            }
+        }
+
+        public RegisterViewsWhereDependOn( viewType: System.Reflection.CType< CView > ): void
+        {
+            let attrDependOnList = viewType.GetCustomAttributes( TypeOf( Attributes.DependOnViewAttribute ), false );
+            if ( attrDependOnList == null || attrDependOnList.length == 0 )
+                return;
+    
+            for ( const attr of attrDependOnList )
+            {
+                if ( attr.ViewType.GetCustomAttributeOne( TypeOf( CSingleInstanceViewAttribute ), true ) == null )
+                    this.m_builder.RegisterType( attr.ViewType ).InstancePerDependency();
+                else
+                    this.m_builder.RegisterType( attr.ViewType ).SingleInstance();
+                this.RegisterViewsWhereDependOn( attr.ViewType );
+            }
         }
     }
 }
