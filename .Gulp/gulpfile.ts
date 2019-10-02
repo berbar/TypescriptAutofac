@@ -2,70 +2,18 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as gulp from "gulp";
-import * as concat from "gulp-concat";
-import * as ts from "gulp-typescript";
-import * as uglify from "gulp-uglify";
 import * as gulpWatch from "gulp-watch";
-import { HasArgument, FindArgument, CArgumnetsCollection, IArgumentCollection as IArgumentsCollection } from "./src/Arguments";
 import * as Project from "./src/Project";
 import { Merge } from "./src/Merge";
 import * as Compile from "./src/Compile";
 import { CExportsAndImports } from "./src/ExportsAndImports";
-import Clean from "./src/Clean";
-//import iberbar, { TypeOf, DeclaringType } from "../dist/commonjs/jasmine";
 
 import "../System/JsArrayExtension";
 import { IEnvs, BuildEnvs } from "./src/Env";
 
 
-// class CCompileOptions
-// {
-//     @DeclaringType( TypeOf( String ) )
-//     @ArgumentName( "out" )
-//     out: string = null;
-
-//     @DeclaringType( TypeOf( String ) )
-//     @ArgumentName( "module" )
-//     @ArgumentEnumValue( "amd", "commonjs" )
-//     module: "amd" | "commonjs" = "amd";
-
-//     @DeclaringType( TypeOf( Boolean ) )
-//     @ArgumentName( "watch" )
-//     watch: boolean = false;
-
-//     @DeclaringType( TypeOf( Array ), [ TypeOf( String ) ] )
-//     projects: Array< string > = null;
-// }
-
-
 let envs: IEnvs = BuildEnvs();
 
-// let uArgvCollection: IArgumentsCollection = new CArgumnetsCollection( process.argv );
-
-// type UCompileOptions =
-// {
-//     out: string;
-//     projects: string[]
-//     module: "amd" | "system";
-//     mergeOneFile: boolean;
-//     watch: boolean;
-//     platform: "browser" | "nodejs";
-// };
-
-// // 获取编译选项
-// let uCompileOptions: UCompileOptions =
-// {
-//     out: uArgvCollection.FindStrings( "out", true ).firstOrDefault(),
-//     projects: uArgvCollection.FindStrings( "project", false ),
-//     module: <any>uArgvCollection.FindStrings( "module", true ).firstOrDefault(),
-//     mergeOneFile: false,
-//     watch: uArgvCollection.FindBoolean( "watch" ),
-//     platform: <any>uArgvCollection.FindStrings( "platform", false ).firstOrDefault()
-// };
-// if ( uCompileOptions.out.endsWith( ".js" ) )
-// {
-//     uCompileOptions.mergeOneFile = true;
-// }
 console.log( "--环境：" );
 console.log( envs.toString() );
 console.log( "\n" );
@@ -79,7 +27,6 @@ if ( envs.CompileOptions.Projects.length == 0 )
     throw new Error( "no projects" );
 }
 
-//Clean( envs.DirBin, envs.DirDist );
 envs.Cleanup();
 fs.mkdirSync( envs.DirBin );
 fs.mkdirSync( envs.DirDist );
@@ -114,15 +61,6 @@ gulp.task( "watch", function()
         WatchPartOf( projectName );
     }
 });
-
-// gulp.task( "compile-all", function()
-// {
-
-//     const tasksMerge = Merge( projectNames, { dirBin: dirBin, dirDist: dirDist } );
-//     const tasksCompile = Compile.GetCompileTasks();
-//     const tasks = tasksCompile.concat( tasksMerge );
-//     return gulp.series( tasks );
-// });
 
 function CompileAll(): string[]
 {

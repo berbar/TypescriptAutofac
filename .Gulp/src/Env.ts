@@ -100,7 +100,7 @@ class CEnvs implements IEnvs
         this.m_compileOptions = compileOptions;
         this.m_dirWorkspace = path.resolve( "../" );
         this.m_dirDist = path.resolve( this.m_compileOptions.Out, this.m_compileOptions.Platform.toLowerCase() );
-        this.m_dirBin = path.resolve( this.m_compileOptions.Out, "temp" );
+        this.m_dirBin = path.resolve( this.m_dirWorkspace, "bin" );
     }
 
     public get DirBin(): string
