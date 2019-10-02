@@ -5,8 +5,9 @@ import * as path from "path";
 import * as gulp from "gulp";
 import * as concat from "gulp-concat";
 import { UImports, UExports } from "./ExportsAndImports";
+import { IEnvs, UCompilePlatform } from "./Env";
 
-export function Merge( projectNames: string[], options: { dirBin: string, dirDist: string }, importFiles: UImports, exportFiles: UExports ): string[]
+export function Merge( env: IEnvs, importFiles: UImports, exportFiles: UExports ): string[]
 {
     function MergeJS()
     {
@@ -15,9 +16,9 @@ export function Merge( projectNames: string[], options: { dirBin: string, dirDis
         {
             srcList.push( f );
         }
-        for ( const projectName of projectNames )
+        for ( const projectName of env.CompileOptions.Projects )
         {
-            srcList.push( path.join( options.dirBin, projectName, "index.js" ) );
+            srcList.push( path.join( env.DirBin, projectName, "index.js" ) );
         }
         for ( const f of exportFiles.javascript )
         {
@@ -25,8 +26,8 @@ export function Merge( projectNames: string[], options: { dirBin: string, dirDis
         }
         
         return gulp.src( srcList )
-            .pipe( concat( "jasmine.js" ) )
-            .pipe( gulp.dest( options.dirDist ) );
+            .pipe( concat( "iberbar/index.js" ) )
+            .pipe( gulp.dest( env.DirDist ) );
     }
     
     function MergeDeclarationFiles()
@@ -36,17 +37,17 @@ export function Merge( projectNames: string[], options: { dirBin: string, dirDis
         {
             srcList.push( f );
         }
-        for ( const projectName of projectNames )
+        for ( const projectName of env.CompileOptions.Projects )
         {
-            srcList.push( path.join( options.dirBin, projectName, "index.d.ts" ) );
+            srcList.push( path.join( env.DirBin, projectName, "index.d.ts" ) );
         }
         for ( const f of exportFiles.typescript )
         {
             srcList.push( f );
         }
         return gulp.src( srcList )
-            .pipe( concat( "jasmine.d.ts" ) )
-            .pipe( gulp.dest( options.dirDist ) );
+            .pipe( concat( "iberbar/index.d.ts" ) )
+            .pipe( gulp.dest( env.DirDist ) );
     }
 
     gulp.task( "MergeJS", MergeJS );
