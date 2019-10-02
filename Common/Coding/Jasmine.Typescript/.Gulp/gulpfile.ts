@@ -79,7 +79,8 @@ if ( envs.CompileOptions.Projects.length == 0 )
     throw new Error( "no projects" );
 }
 
-Clean( envs.DirBin, envs.DirDist );
+//Clean( envs.DirBin, envs.DirDist );
+envs.Cleanup();
 fs.mkdirSync( envs.DirBin );
 fs.mkdirSync( envs.DirDist );
 

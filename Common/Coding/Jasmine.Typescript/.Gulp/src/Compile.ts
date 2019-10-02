@@ -19,9 +19,9 @@ export function DefineCompileTasks( projects: ProjectNode[], env: IEnvs ): void
     for ( const projectNode of projects )
     {
         let taskName = GetCompileTaskName( projectNode.name );
+        projectNode.tsProject.options.outFile = path.resolve( env.DirBin, projectNode.name, "index.js" );
         gulp.task( taskName, function()
         {
-            projectNode.tsProject.options.outFile = path.resolve( env.DirBin, projectNode.name, "index.js" );
             return projectNode.tsProject.src()
                 .pipe(projectNode.tsProject( gulpts.reporter.defaultReporter() ))
                 .pipe(gulp.dest( "./" ) )
