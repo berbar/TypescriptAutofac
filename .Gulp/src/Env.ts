@@ -126,9 +126,9 @@ class CEnvs implements IEnvs
     public Cleanup(): void
     {
         if ( fs.existsSync( this.m_dirDist ) )
-            DeleteFolder( this.m_dirDist );
-        if ( fs.existsSync( this.m_dirBin ) )
-            DeleteFolder( this.m_dirBin );
+            DeleteFolder( this.m_dirDist, false );
+        // if ( fs.existsSync( this.m_dirBin ) )
+        //     DeleteFolder( this.m_dirBin, false );
     }
 
     public toString(): string

@@ -5,12 +5,12 @@ import * as path from "path";
 export function Clean( dirBin: string, dirDist: string ): void
 {
     if ( fs.existsSync( dirBin ) )
-        DeleteFolder( dirBin );
+        DeleteFolder( dirBin, false );
     if ( fs.existsSync( dirDist ) )
-        DeleteFolder( dirDist );
+        DeleteFolder( dirDist, false );
 }
 
-export function DeleteFolder( dir: string ): void
+export function DeleteFolder( dir: string, deleteSelf: boolean ): void
 {
     let children = fs.readdirSync( dir );
     for ( const child of children )
@@ -19,14 +19,15 @@ export function DeleteFolder( dir: string ): void
         let stat = fs.statSync( pathChild );
         if ( stat.isDirectory() == true )
         {
-            DeleteFolder( pathChild );
+            DeleteFolder( pathChild, true );
         }
         else
         {
             fs.unlinkSync( pathChild );
         }
     }
-    fs.rmdirSync( dir );
+    if ( deleteSelf == true )
+        fs.rmdirSync( dir );
 }
 
 export default Clean;

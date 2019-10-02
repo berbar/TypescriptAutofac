@@ -28,8 +28,10 @@ if ( envs.CompileOptions.Projects.length == 0 )
 }
 
 envs.Cleanup();
-fs.mkdirSync( envs.DirBin );
-fs.mkdirSync( envs.DirDist );
+if ( fs.existsSync( envs.DirBin ) == false )
+    fs.mkdirSync( envs.DirBin );
+if ( fs.existsSync( envs.DirDist ) == false )
+    fs.mkdirSync( envs.DirDist );
 
 const projects = Project.ScanProjects( envs.DirWorkspace, envs.CompileOptions.Projects );
 
@@ -48,7 +50,7 @@ console.log( "\n" );
 function WatchPartOf( projectName: string ): void
 {
     const tasksMerge = Merge( envs, importFiles, exportFiles );
-    const tasksCompile = [ Compile.GetCompileTaskName( projectName ) ];
+    const tasksCompile = Compile.GetCompileTasks( projectName );
     const tasks = tasksCompile.concat( tasksMerge );
     let glops = path.resolve( envs.DirWorkspace, projectName, "**/*.ts" );
     gulpWatch( glops, gulp.series( tasks ) );
