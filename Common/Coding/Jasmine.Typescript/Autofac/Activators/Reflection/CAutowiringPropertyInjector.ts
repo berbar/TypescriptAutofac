@@ -6,7 +6,7 @@ namespace iberbar.Autofac.Activators.Reflection
     {
         public Equals( a: System.Reflection.CType, b: System.Reflection.CType ): boolean
         {
-            throw new Error("Method not implemented.");
+            return a.IsEquivalentTo( b );
         }
     }
 
@@ -41,21 +41,31 @@ namespace iberbar.Autofac.Activators.Reflection
                     continue;
 
                 // let setParameter = propertyInfo.GetSetMethod().GetParameters()[ 0 ];
-                // let valueProvider: System.OutParameter< () => object > = { __out: null };
-                // let parameter = parameters.firstOrDefault( ( p ) => p.CanSupplyValue( setParameter, context, valueProvider ) );
+                // let parameter = parameters.firstOrDefault( ( p ) => p.CanSupplyValue( setParameter, context ).ret == true );
                 // if ( parameter != null )
                 // {
-                    
                 // }
 
-                let propertyType = propertyInfo.PropertyType;
-                if ( propertyType == null )
-                    continue;
+                let registration: Core.IComponentRegistration;
 
-                let propertyService = new Core.CTypedService( propertyType );
-                let registration = context.ComponentRegistry.GetRegistration( propertyService );
+                if ( propertyInfo.GetCustomAttributeOne( System.Reflection.TypeOf( CInjectLifetimeScopeAttribute ) ) != null )
+                {
+                    registration = context.ComponentRegistry.GetRegistration( new Core.CLifetimeScopeService() );
+
+                }
+                else
+                {
+                    let propertyType = propertyInfo.PropertyType;
+                    if ( propertyType == null )
+                        continue;
+    
+                    let propertyService = new Core.CTypedService( propertyType );
+                    registration = context.ComponentRegistry.GetRegistration( propertyService );
+                }
+
                 if ( registration == null )
-                    continue;
+                    throw new Error( `Can't resolve the instance of type (ILifetimeScope)` );
+
                 let propertyValue: object = null;
                 try
                 {
