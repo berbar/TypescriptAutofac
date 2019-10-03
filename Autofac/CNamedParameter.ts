@@ -8,7 +8,7 @@ namespace iberbar.Autofac
     {
         public constructor( name: string, value: object )
         {
-            super( value, pi => false );
+            super( value, pi => pi.Name == name );
         }
     }
 }

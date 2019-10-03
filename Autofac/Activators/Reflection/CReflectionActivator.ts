@@ -103,7 +103,7 @@ namespace iberbar.Autofac.Activators.Reflection
                     if ( canSupplyValue.ret == true )
                     {
                         actualProperties.splice( i, 1 );
-                        propertyInfo.SetValue( instance, canSupplyValue.valueProvider );
+                        propertyInfo.SetValue( instance, canSupplyValue.valueProvider() );
                         break;
                     }
                 }
