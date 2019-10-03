@@ -93,11 +93,15 @@ namespace iberbar.Autofac.Activators.Reflection
                 return;
 
             let actualProperties = instance.GetType().GetProperties().where( ( pi ) => pi.CanWrite );
-            for ( const configuredProperty of this.m_configuredProperties )
+            for ( let configuredProperty of this.m_configuredProperties )
             {
                 for ( let i = 0; i < actualProperties.length; i ++ )
                 {
                     let propertyInfo = actualProperties[ i ];
+                    if ( propertyInfo.GetCustomAttributeOne( System.Reflection.TypeOf( CInjectLifetimeScopeAttribute ) ) != null )
+                    {
+                        configuredProperty = new CAutowiringParameter();
+                    }
                     let setter = propertyInfo.GetSetMethod();
                     let canSupplyValue = configuredProperty.CanSupplyValue( setter.GetParameters()[ 0 ], context );
                     if ( canSupplyValue.ret == true )
