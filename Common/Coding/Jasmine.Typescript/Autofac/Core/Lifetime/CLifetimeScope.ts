@@ -96,7 +96,7 @@ namespace iberbar.Autofac.Core.Lifetime
             let ret = this.TryResolveService( new CTypedService( type ), parameters );
             if ( ret.succeed == false )
             {
-                throw new Error();
+                throw new Error( `Can't resolve instance of type (${type.GetJsConstructor().name})` );
             }
             return <TService>ret.instance;
         }
