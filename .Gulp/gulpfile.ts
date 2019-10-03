@@ -50,7 +50,7 @@ console.log( "\n" );
 
 function WatchPartOf( projectName: string ): void
 {
-    const tasksMerge = Merge( envs, importFiles, exportFiles );
+    const tasksMerge = Merge( envs, projectManager, importFiles, exportFiles );
     const tasksCompile = Compile.GetCompileTasks( projectName );
     const tasks = tasksCompile.concat( tasksMerge );
     let glops = path.resolve( envs.DirWorkspace, projectName, "**/*.ts" );
