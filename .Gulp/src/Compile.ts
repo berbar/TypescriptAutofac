@@ -38,7 +38,7 @@ export function GetCompileTasks( projectNames?: string | ReadonlyArray< string >
 }
 
 
-export function DefineCompileTasks( projects: ProjectNode[], env: IEnvs ): void
+export function DefineCompileTasks( projects: ReadonlyArray< ProjectNode >, env: IEnvs ): void
 {
     for ( const projectNode of projects )
     {
