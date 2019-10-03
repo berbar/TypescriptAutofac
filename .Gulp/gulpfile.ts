@@ -33,6 +33,8 @@ if ( fs.existsSync( envs.DirBin ) == false )
 if ( fs.existsSync( envs.DirDist ) == false )
     fs.mkdirSync( envs.DirDist );
 
+let projectManager = new Project.CProjectManager( envs );
+projectManager.InitProjects();
 const projects = Project.ScanProjects( envs.DirWorkspace, envs.CompileOptions.Projects );
 
 Compile.DefineCompileTasks( projects, envs );

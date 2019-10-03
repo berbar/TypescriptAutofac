@@ -12,7 +12,16 @@
             "outFiles": [
                 "${workspaceFolder}/bin/.Gulp/**/*.js"
             ],
-            "sourceMaps": true
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--out",
+                "../dist",
+                "--platform",
+                "browser",
+                "--projects",
+                "HtmlMvc"
+            ]
         }
     ]
 }
