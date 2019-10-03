@@ -20,7 +20,7 @@
                 "--platform",
                 "browser",
                 "--projects",
-                "HtmlMvc"
+                "HtmlMvc,Event,DataAnnotations"
             ]
         }
     ]

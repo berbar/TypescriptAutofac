@@ -36,22 +36,16 @@ export class CProjectManager implements IProjectManager
     public constructor( env: IEnvs )
     {
         this.m_env = env;
-    }
-
-    public InitProjects(): this
-    {
         for ( const projectName of this.m_env.CompileOptions.Projects )
         {
             this.AddProject( projectName );
         }
 
-        if ( this.m_projectNodes.length )
+        if ( this.m_projectNodes.length == 0 )
             throw new Error( "No projects!" )
 
         console.log( this.m_projectNodes );
         console.log( this.m_projectInfos );
-
-        return this;
     }
 
     private AddProject( projectName: string ): void

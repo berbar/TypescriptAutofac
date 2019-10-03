@@ -33,6 +33,7 @@ export function Merge( env: IEnvs, importFiles: UImports, exportFiles: UExports 
             taskCore.pipe( babelCompiler );
         }
         taskCore.pipe( gulp.dest( env.DirDist ) );
+        return taskCore;
     }
     
     function MergeDeclarationFiles()
