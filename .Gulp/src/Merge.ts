@@ -7,9 +7,12 @@ import * as concat from "gulp-concat";
 import { UImports, UExports } from "./ExportsAndImports";
 import { IEnvs, UCompilePlatform } from "./Env";
 import { CBabelHelper } from "./Babel";
+import { IProjectManager } from "./Project";
 
-export function Merge( env: IEnvs, importFiles: UImports, exportFiles: UExports ): string[]
+export function Merge( env: IEnvs, projectManager: IProjectManager, importFiles: UImports, exportFiles: UExports ): string[]
 {
+    let projects = projectManager.GetProjects();
+
     function MergeJS()
     {
         let srcList: string[] = [];
@@ -17,9 +20,9 @@ export function Merge( env: IEnvs, importFiles: UImports, exportFiles: UExports 
         {
             srcList.push( f );
         }
-        for ( const projectName of env.CompileOptions.Projects )
+        for ( const projectNode of projects )
         {
-            srcList.push( path.join( env.DirBin, projectName, "index.js" ) );
+            srcList.push( path.join( env.DirBin, projectNode.name, "index.js" ) );
         }
         for ( const f of exportFiles.javascript )
         {
@@ -43,9 +46,9 @@ export function Merge( env: IEnvs, importFiles: UImports, exportFiles: UExports 
         {
             srcList.push( f );
         }
-        for ( const projectName of env.CompileOptions.Projects )
+        for ( const projectNode of projects )
         {
-            srcList.push( path.join( env.DirBin, projectName, "index.d.ts" ) );
+            srcList.push( path.join( env.DirBin, projectNode.name, "index.d.ts" ) );
         }
         for ( const f of exportFiles.typescript )
         {
