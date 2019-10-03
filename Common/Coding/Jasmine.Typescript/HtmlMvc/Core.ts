@@ -148,6 +148,21 @@ namespace iberbar.Mvc
             }
         }
 
+        public ResetController( type: System.Reflection.CType<CViewController> ): void
+        {
+            if ( type == null )
+                this.m_controller = null;
+            else
+            {
+                let controllerConstructor = type.GetConstructor();
+                this.m_controller = controllerConstructor.Invoke();
+            }
+            if ( this.m_elementRoot != null )
+            {
+                this.ReBindActions();
+            }
+        }
+
         public set ID( id: string )
         {
             this.m_id = id;
@@ -197,15 +212,9 @@ namespace iberbar.Mvc
             this.OnCreated();
         }
 
-        protected ReturnHTML(): string
-        {
-            return "";
-        }
+        protected abstract ReturnHTML(): string;
 
-        protected ReturnClasses(): string[]
-        {
-            return null;
-        }
+        protected abstract ReturnClasses(): string[];
 
         protected OnCreated(): void
         {
