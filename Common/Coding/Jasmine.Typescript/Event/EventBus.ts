@@ -2,20 +2,14 @@
 
 namespace iberbar.Event
 {
-    export class IEventBus
+    export abstract class IEventBus
     {
-        public Listen< TEvent extends CEvent >( eventType: System.Reflection.CType< TEvent >, listener: IEventBus.IEventBusListener< TEvent >, once?: boolean ): void
-        {
-        }
+        public abstract Listen< TEvent extends CEvent >( eventType: System.Reflection.CType< TEvent >, listener: System.TCallbackOrFunction< UEventBusListenerFunction< TEvent > >, once?: boolean ): void;
 
-        public Send< TEvent extends CEvent >( eventData: TEvent ): void
-        {
-        }
+        public abstract Send< TEvent extends CEvent >( eventData: TEvent ): void;
     };
 
-    export namespace IEventBus
-    {
-        export type IEventBusListener< TEvent extends CEvent > = System.TCallback< ( eventData: TEvent ) => void >;
-    }
+    export type UEventBusListenerFunction< TEvent extends CEvent > = ( eventData: TEvent ) => void;
+    export type IEventBusListener< TEvent extends CEvent > = System.TCallback< UEventBusListenerFunction< TEvent > >;
 
 }

@@ -28,14 +28,14 @@ namespace iberbar.System
         }
     };
 
-    export type Delegate< T extends (...args: any) => any > = T | TCallback< T > ;
+    export type TCallbackOrFunction< T extends (...args: any) => any > = T | TCallback< T > ;
 
 
     export class TCallbackArray< T extends (...args: any) => any >
     {
         public callbacks: TCallback< T >[] = [];
 
-        public Add( callback: Delegate< T > | Array< Delegate< T > > )
+        public Add( callback: TCallbackOrFunction< T > | Array< TCallbackOrFunction< T > > )
         {
             if ( callback instanceof Array )
             {

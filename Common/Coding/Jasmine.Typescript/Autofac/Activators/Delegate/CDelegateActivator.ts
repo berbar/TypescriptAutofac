@@ -8,7 +8,7 @@ namespace iberbar.Autofac.Activators.Delegate
     {
         private readonly m_activationFunction: System.TCallback< UActivationFunction >;
 
-        public constructor( implementationType: System.Reflection.CType, activationFunction: System.Delegate< UActivationFunction > )
+        public constructor( implementationType: System.Reflection.CType, activationFunction: System.TCallbackOrFunction< UActivationFunction > )
         {
             super( implementationType );
             if ( typeof( activationFunction ) == "function" )

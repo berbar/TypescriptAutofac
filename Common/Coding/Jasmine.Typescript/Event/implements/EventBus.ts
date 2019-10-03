@@ -4,7 +4,7 @@ namespace iberbar.Event.Implements
 {
     type UEventDelegate =
     {
-        listener: IEventBus.IEventBusListener< CEvent >;
+        listener: IEventBusListener< CEvent >;
         kick: number;
     };
 
@@ -14,7 +14,7 @@ namespace iberbar.Event.Implements
     {
         protected m_events: WeakMap< System.Reflection.TypePrototype< CEvent >, UEventDelegateList > = new WeakMap();
 
-        public Listen< TEvent extends CEvent >( eventType: System.Reflection.CType< TEvent >, listener: IEventBus.IEventBusListener< TEvent >, once?: boolean ): void
+        public Listen< TEvent extends CEvent >( eventType: System.Reflection.CType< TEvent >, listener: System.TCallbackOrFunction< UEventBusListenerFunction< TEvent > >, once?: boolean ): void
         {
             let prototype = eventType.GetJsPrototype<{}>();
             let array = this.m_events.get( prototype );
@@ -22,7 +22,7 @@ namespace iberbar.Event.Implements
             {
                 array = Array();
                 array.push( {
-                    listener: listener,
+                    listener: ( typeof( listener ) == "function" ) ? __Callback( listener ) : listener,
                     kick: ( once == true ) ? 1 : -1
                 } );
                 this.m_events.set( prototype, array );
@@ -36,7 +36,7 @@ namespace iberbar.Event.Implements
                         return;
                 }
                 array.push( {
-                    listener: listener,
+                    listener: ( typeof( listener ) == "function" ) ? __Callback( listener ) : listener,
                     kick: ( once == true ) ? 1 : -1
                 });
             }

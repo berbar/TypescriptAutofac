@@ -9,7 +9,7 @@ namespace iberbar.Autofac
 
         public Register< T extends object >(
             type: System.Reflection.CType< T >,
-            delegate: System.Delegate< Activators.Delegate.UActivationFunction< T > >
+            delegate: System.TCallbackOrFunction< Activators.Delegate.UActivationFunction< T > >
         ): Builder.IRegistrationBuilder< T >
         {
             let rb = new Builder.CRegistrationBuilder(
