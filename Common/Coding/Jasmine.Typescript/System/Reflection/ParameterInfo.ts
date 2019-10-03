@@ -10,6 +10,8 @@ namespace iberbar.System.Reflection
         
         public abstract get ParameterIndex(): number;
 
+        public abstract get Name(): string;
+
         public abstract get ParameterType(): CType;
 
         public abstract GetCustomAttributeOne< TAttribute extends CAttribute >( attributeType: CType< TAttribute > ): TAttribute;

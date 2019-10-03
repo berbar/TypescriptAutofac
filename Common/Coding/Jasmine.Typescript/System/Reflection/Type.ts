@@ -623,17 +623,28 @@ namespace iberbar.System.Reflection
                 for ( let i = 0; i < parameterCount; i ++ )
                 {
                     let typeAttribute: CDeclaringTypeAttribute = null;
+                    let parameterName: string = null;
                     if ( this.m_fromProperty == null )
                     {
                         let key = new Metadata.Core.CMetadataKeyForParameter( classType, UAttributeTarget.Parameter, this.Name, i );
-                        typeAttribute = Metadata.Container.GetCollection( key ).GetAttributeOne( TypeOf( CDeclaringTypeAttribute ) );
+                        let attrsCollection = Metadata.Container.GetCollection( key );
+                        typeAttribute = attrsCollection.GetAttributeOne( TypeOf( CDeclaringTypeAttribute ) );
+                        let nameAttribute = attrsCollection.GetAttributeOne( TypeOf( CNamedAttribute ) );
+                        if ( nameAttribute ! = null )
+                            parameterName = nameAttribute.Text;
                     }
                     else
                     {
                         typeAttribute = this.m_fromProperty.GetCustomAttributeOne( TypeOf( CDeclaringTypeAttribute ) );
+                        parameterName = this.m_fromProperty.Name;
                         
                     }
-                    infos[ i ] = new CRuntimeParameterInfo( this.m_prototype, this, i, ( typeAttribute == null ) ? null : typeAttribute.DeclaringType );
+                    infos[ i ] = new CRuntimeParameterInfo(
+                        this.m_prototype,
+                        this,
+                        i,
+                        ( typeAttribute == null ) ? null : typeAttribute.DeclaringType,
+                        parameterName );
                 }
             }
             return infos;
@@ -729,16 +740,18 @@ namespace iberbar.System.Reflection
         // protected m_descriptor: PropertyDescriptor = null;
         private readonly m_member: CMemberInfo = null;
         protected m_parameterIndex: number = null;
+        private m_parameterName: string = null;
         private readonly m_parameterType: CType = null;
 
         private m_metadataCollection: Metadata.IMetadataCollectionReadonly = null;
 
-        public constructor( prototype: TypePrototype< object >, member: CMemberInfo, parameterIndex: number, parameterType: CType )
+        public constructor( prototype: TypePrototype< object >, member: CMemberInfo, parameterIndex: number, parameterType: CType, parameterName?: string )
         {
             super();
             this.m_prototype = prototype;
             this.m_member = member;
             this.m_parameterIndex = parameterIndex;
+            this.m_parameterName = parameterName;
             this.m_parameterType = parameterType;
         }
 
@@ -750,6 +763,11 @@ namespace iberbar.System.Reflection
         public get ParameterIndex()
         {
             return this.m_parameterIndex;
+        }
+
+        public get Name(): string
+        {
+            return this.m_parameterName;
         }
 
         public get ParameterType(): CType
