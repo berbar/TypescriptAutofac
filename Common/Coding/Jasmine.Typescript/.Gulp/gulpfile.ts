@@ -67,7 +67,7 @@ gulp.task( "watch", function()
 
 function CompileAll(): string[]
 {
-    const tasksMerge = Merge( envs, importFiles, exportFiles );
+    const tasksMerge = Merge( envs, projectManager, importFiles, exportFiles );
     const tasksCompile = Compile.GetCompileTasks();
     const tasks = tasksCompile.concat( tasksMerge );
     return tasks;
