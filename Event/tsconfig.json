@@ -4,6 +4,6 @@
         "outFile": "../bin/Event/index.js",
     },
     "references": [
-        { "path": "../system" }
+        { "path": "../System" }
     ]
 }
