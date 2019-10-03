@@ -54,7 +54,7 @@ namespace iberbar.System
                     CAttributeDecorateHelper.DecorateParameter(
                         attribute,
                         attributeUsage,
-                        target.prototype,
+                        target,
                         propertyName,
                         descriptorOrParameterIndex );
                 }
