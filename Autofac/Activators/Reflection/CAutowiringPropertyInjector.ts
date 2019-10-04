@@ -51,7 +51,8 @@ namespace iberbar.Autofac.Activators.Reflection
                 if ( propertyInfo.GetCustomAttributeOne( System.Reflection.TypeOf( CInjectLifetimeScopeAttribute ) ) != null )
                 {
                     registration = context.ComponentRegistry.GetRegistration( new Core.CLifetimeScopeService() );
-
+                    if ( registration == null )
+                        throw new Error( `Can't resolve the instance of type (ILifetimeScope)` );
                 }
                 else
                 {
@@ -61,10 +62,11 @@ namespace iberbar.Autofac.Activators.Reflection
     
                     let propertyService = new Core.CTypedService( propertyType );
                     registration = context.ComponentRegistry.GetRegistration( propertyService );
+                    if ( registration == null )
+                        throw new Error( `Can't resolve the instance of type (${propertyType.GetJsConstructor().name})` );
                 }
 
-                if ( registration == null )
-                    throw new Error( `Can't resolve the instance of type (ILifetimeScope)` );
+
 
                 let propertyValue: object = null;
                 try
