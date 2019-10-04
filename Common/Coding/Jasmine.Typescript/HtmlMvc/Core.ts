@@ -184,7 +184,7 @@ namespace iberbar.Mvc
             return this.m_id;
         }
 
-        public Destory(): void
+        public Destroy(): void
         {
         }
 
