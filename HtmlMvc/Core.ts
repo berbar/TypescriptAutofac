@@ -138,6 +138,17 @@ namespace iberbar.Mvc
         protected m_uniqueId: string = null;
         protected m_id: string = null;
 
+        
+        /**
+         * autofac注入
+         */
+        protected m_lifetimeScope: iberbar.Autofac.ILifetimeScope = null;
+        @iberbar.Autofac.InjectLifetimeScope()
+        public set LifetimeScope( value: iberbar.Autofac.ILifetimeScope )
+        {
+            this.m_lifetimeScope = value;
+        }
+
         constructor()
         {
             let attrSetController = this.GetType().GetCustomAttributeOne( System.Reflection.TypeOf( Attributes.SetControllerAttribute ), false );
