@@ -20,6 +20,7 @@ export interface ICompileOptions
     // readonly mergeOneFile: boolean;
     readonly Watch: boolean;
     readonly Platform: UCompilePlatform;
+    readonly SourceMaps: boolean;
 }
 
 export interface IEnvs
@@ -39,6 +40,7 @@ class CCompileOptions implements ICompileOptions
     private m_projects: string[] = null;
     private m_watch: boolean = false;
     private m_platform: UCompilePlatform = null;
+    private m_sourceMaps: boolean = null;
 
     public constructor( argvCollection: IArgumentCollection )
     {
@@ -51,6 +53,7 @@ class CCompileOptions implements ICompileOptions
             this.m_platform = UCompilePlatform.NodeJS;
         }
         this.m_platform = <any>this.m_platform.toLowerCase();
+        this.m_sourceMaps = argvCollection.FindBoolean( "sourcemaps" );
     }
 
     public get Out(): string
@@ -73,6 +76,11 @@ class CCompileOptions implements ICompileOptions
         return this.m_platform;
     }
 
+    public get SourceMaps(): boolean
+    {
+        return this.m_sourceMaps;
+    }
+
     public toString(): string
     {
         let options: ICompileOptions =
@@ -80,7 +88,8 @@ class CCompileOptions implements ICompileOptions
             Out: this.Out,
             Projects: this.Projects,
             Watch: this.Watch,
-            Platform: this.Platform
+            Platform: this.Platform,
+            SourceMaps: this.SourceMaps
         };
         return JSON.stringify( options, null, 4 );
     }

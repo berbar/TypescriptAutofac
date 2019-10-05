@@ -32,15 +32,21 @@ export function Merge( env: IEnvs, projectManager: IProjectManager, importFiles:
         let babelCompiler = new CBabelHelper().GetCompiler();
         
         let taskCore = gulp.src( srcList );
-        
-        taskCore = taskCore.pipe( gulpsourcemaps.init() );
+
+        if ( env.CompileOptions.SourceMaps == true )
+            taskCore = taskCore.pipe( gulpsourcemaps.init() );
+
         if ( env.CompileOptions.Platform == UCompilePlatform.Browser )
         {
             taskCore = taskCore.pipe( babelCompiler );
         }
         taskCore = taskCore.pipe( concat( "iberbar/index.js" ) );
-        taskCore = taskCore.pipe( gulpsourcemaps.write())
+
+        if ( env.CompileOptions.SourceMaps == true )
+            taskCore = taskCore.pipe( gulpsourcemaps.write());
+        
         taskCore = taskCore.pipe( gulp.dest( env.DirDist ) );
+        
         return taskCore;
     }
 
