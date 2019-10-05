@@ -45,13 +45,14 @@ export function DefineCompileTasks( projects: ReadonlyArray< ProjectNode >, env:
         projectNode.tsProject.options.outFile = path.resolve( env.DirBin, projectNode.name, "index.js" );
         gulp.task( taskName, function()
         {
-            return projectNode.tsProject.src()
-                .pipe( gulpsourcemaps.init() )
-                .pipe( projectNode.tsProject( gulpts.reporter.defaultReporter() ) )
-                //.pipe( babelCompiler )
-                
-                .pipe( gulpsourcemaps.write( { sourceRoot: path.resolve( env.DirBin, projectNode.name ) }))
-                .pipe( gulp.dest( "./" ) );
+            let taskCore = projectNode.tsProject.src();
+            if ( env.CompileOptions.SourceMaps == true )
+                taskCore = taskCore.pipe( gulpsourcemaps.init() )
+            taskCore = taskCore.pipe( projectNode.tsProject( gulpts.reporter.defaultReporter() ) )
+            if ( env.CompileOptions.SourceMaps == true )
+                taskCore = taskCore.pipe( gulpsourcemaps.write( { sourceRoot: path.resolve( env.DirBin, projectNode.name ) }))
+            taskCore = taskCore.pipe( gulp.dest( "./" ) );
+            return taskCore;
         });
         gTasks.push( taskName );
     }
