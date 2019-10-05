@@ -1,9 +1,0 @@
-{
-    "extends": "../tsconfig.json",
-    "compilerOptions": {
-        "outFile": "../bin/types/interception/index.js",
-    },
-    "references": [
-        { "path": "../System" }
-    ]
-}
