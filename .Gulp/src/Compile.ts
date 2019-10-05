@@ -5,6 +5,7 @@ import { ProjectNode } from "./Project";
 import { IEnvs } from "./Env";
 import ts = require( "typescript" );
 import * as gulpts from  "gulp-typescript";
+import * as gulpsourcemaps from "gulp-sourcemaps";
 import * as gulpbabel from "gulp-babel";
 import { CBabelHelper } from "./Babel";
 
@@ -32,8 +33,6 @@ export function GetCompileTasks( projectNames?: string | ReadonlyArray< string >
             }
         }
     }
-
-    //tasks.push( "compile-babel" );
     return tasks;
 }
 
@@ -47,28 +46,13 @@ export function DefineCompileTasks( projects: ReadonlyArray< ProjectNode >, env:
         gulp.task( taskName, function()
         {
             return projectNode.tsProject.src()
+                .pipe( gulpsourcemaps.init() )
                 .pipe( projectNode.tsProject( gulpts.reporter.defaultReporter() ) )
                 //.pipe( babelCompiler )
-                .pipe( gulp.dest( "./" ) )
+                
+                .pipe( gulpsourcemaps.write( { sourceRoot: path.resolve( env.DirBin, projectNode.name ) }))
+                .pipe( gulp.dest( "./" ) );
         });
         gTasks.push( taskName );
     }
-
-    // let babelCompiler = gulpbabel({
-    //     presets: ['@babel/env'],
-    //     plugins: [
-    //         "@babel/plugin-transform-for-of",
-    //         "@babel/plugin-transform-typeof-symbol"
-    //     ]
-    // });
-    // let babelSrc = path.resolve( env.DirBin, "**", "*.js" );
-    // gulp.task( "compile-babel", () =>
-    // {
-    //     return gulp.src( babelSrc ).pipe( babelCompiler ).pipe( gulp.dest( path.resolve( env.DirBin ) ) );
-    // });
 }
-
-// export function GetCompileTasks(): string[]
-// {
-//     return tasks;
-// }

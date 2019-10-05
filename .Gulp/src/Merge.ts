@@ -3,6 +3,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as gulp from "gulp";
+import * as gulpsourcemaps from "gulp-sourcemaps";
 import * as concat from "gulp-concat";
 import { UImports, UExports } from "./ExportsAndImports";
 import { IEnvs, UCompilePlatform } from "./Env";
@@ -30,14 +31,30 @@ export function Merge( env: IEnvs, projectManager: IProjectManager, importFiles:
         }
         let babelCompiler = new CBabelHelper().GetCompiler();
         
-        let taskCore = gulp.src( srcList ).pipe( concat( "iberbar/index.js" ) );
+        let taskCore = gulp.src( srcList );
+        
+        taskCore = taskCore.pipe( gulpsourcemaps.init() );
         if ( env.CompileOptions.Platform == UCompilePlatform.Browser )
         {
-            taskCore.pipe( babelCompiler );
+            taskCore = taskCore.pipe( babelCompiler );
         }
-        taskCore.pipe( gulp.dest( env.DirDist ) );
+        taskCore = taskCore.pipe( concat( "iberbar/index.js" ) );
+        taskCore = taskCore.pipe( gulpsourcemaps.write())
+        taskCore = taskCore.pipe( gulp.dest( env.DirDist ) );
         return taskCore;
     }
+
+    // function MergeSourceMap(): any
+    // {
+    //     let srcList: string[] = [];
+    //     for ( const projectNode of projects )
+    //     {
+    //         srcList.push( path.join( env.DirBin, projectNode.name, "index.js.map" ) );
+    //     }
+    //     let taskCore = gulp.src( srcList ).pipe( concat( "iberbar/index.js.map" ) );
+    //     taskCore.pipe( gulp.dest( env.DirDist ) );
+    //     return taskCore;
+    // }
     
     function MergeDeclarationFiles()
     {
@@ -61,6 +78,7 @@ export function Merge( env: IEnvs, projectManager: IProjectManager, importFiles:
 
     gulp.task( "MergeJS", MergeJS );
     gulp.task( "MergeDeclarationFiles", MergeDeclarationFiles );
+    //gulp.task( "MergeSourceMap", MergeSourceMap );
     return [ "MergeJS", "MergeDeclarationFiles" ];
 }
 
