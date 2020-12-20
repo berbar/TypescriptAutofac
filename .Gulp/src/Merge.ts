@@ -82,10 +82,18 @@ export function Merge( env: IEnvs, projectManager: IProjectManager, importFiles:
             .pipe( gulp.dest( env.DirDist ) );
     }
 
-    gulp.task( "MergeJS", MergeJS );
+    let taskArray: Array< string > = Array();
+
+    if ( env.CompileOptions.EmitDeclarationOnly == false )
+    {
+        gulp.task( "MergeJS", MergeJS );
+        taskArray.push( "MergeJS" );
+    }
+    
     gulp.task( "MergeDeclarationFiles", MergeDeclarationFiles );
-    //gulp.task( "MergeSourceMap", MergeSourceMap );
-    return [ "MergeJS", "MergeDeclarationFiles" ];
+    taskArray.push( "MergeDeclarationFiles" );
+
+    return taskArray;
 }
 
 

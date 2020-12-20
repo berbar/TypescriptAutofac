@@ -5,7 +5,7 @@ namespace iberbar.System
     /**
      * 特性基类
      */
-    export class CAttribute
+    export abstract class CAttribute
     {
     };
 }

@@ -44,15 +44,20 @@ export class CProjectManager implements IProjectManager
         if ( this.m_projectNodes.length == 0 )
             throw new Error( "No projects!" )
 
-        console.log( this.m_projectNodes );
-        console.log( this.m_projectInfos );
+        //console.log( this.m_projectNodes );
+        console.log( "--编译的项目: \n" );
+        for ( const projectName in this.m_projectInfos )
+        {
+            console.log( "[%s] 引用该项目的项目列表: %s", projectName, this.m_projectInfos[ projectName ].children.join( "," ) );
+        }
+        //console.log( this.m_projectInfos );
     }
 
     private AddProject( projectName: string ): void
     {
         let tsconfig = path.resolve( this.m_env.DirWorkspace, projectName, "tsconfig.json" );
         if ( fs.existsSync( tsconfig ) == false )
-            throw new Error( "" );
+            throw new Error( `Can't find the tsconfig<${tsconfig}>.` );
 
         let projectNode: ProjectNode = {
             name: projectName,
@@ -69,7 +74,7 @@ export class CProjectManager implements IProjectManager
                 this.AddProject( refName );
             }
         }
-        if ( this.m_projectNodes.firstOrDefault( n => n.name == projectName ) == null )
+        if ( this.m_projectNodes.FirstOrDefault( n => n.name.toLowerCase() == projectName.toLowerCase() ) == null )
             this.m_projectNodes.push( projectNode );
 
         this.UpdateProjectInfo( projectName, referenceNames );
@@ -80,7 +85,7 @@ export class CProjectManager implements IProjectManager
     }
     public GetChildren(project: string): string[]
     {
-        throw new Error("Method not implemented.");
+        return Array( ...( this.m_projectInfos[ project ].children ) );
     }
     public GetProjects(): ReadonlyArray< ProjectNode >
     {
@@ -89,18 +94,26 @@ export class CProjectManager implements IProjectManager
 
     private UpdateProjectInfo( project: string, references: Array< string > ): void
     {
+        this.GetOrAddProjectInfo( project );
         for ( const reference of references )
         {
-            let info = this.m_projectInfos[ reference ];
-            if ( info == null )
-            {
-                info = this.m_projectInfos[ reference ] = {
-                    children: Array(),
-                    parents: Array(),
-                };
-            }
-            info.children.push( project );
+            let infoParent = this.GetOrAddProjectInfo( reference );
+            if ( infoParent.children.FirstOrDefault( c => c.toLowerCase() == project.toLowerCase() ) == null )
+                infoParent.children.push( project );
         }
+    }
+
+    private GetOrAddProjectInfo( projectName: string ): UProjectInfo
+    {
+        let info = this.m_projectInfos[ projectName ];
+        if ( info == null )
+        {
+            this.m_projectInfos[ projectName ] = {
+                children: Array(),
+                parents: Array(),
+            };
+        }
+        return info;
     }
 
     private ScanProjects( dirWorkspace: string, projectNames: ReadonlyArray< string > ): ProjectNode[]

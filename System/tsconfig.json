@@ -1,20 +1,12 @@
-// {
-//     "compilerOptions": {
-//         "target": "es5",
-//         "experimentalDecorators": true,
-//         //"module": "commonjs",
-//         "outFile": "./system.js",
-//         "rootDir": "./",
-//         "declaration": true,
-//     }
-// }
 
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
         "outFile": "../bin/System/index.js",
-        "module": "amd",
-        "rootDir": "./"
+        "rootDir": "./",
+        "typeRoots": [
+            "./node_modules"
+        ]
     },
     "exclude": [
         "./JsArrayExtension.d.ts",

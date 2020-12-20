@@ -8,11 +8,11 @@ namespace iberbar.Autofac.Builder
         private m_services: Array< Core.CService > = Array();
 
         private m_sharing: Core.UInstanceSharing = Core.UInstanceSharing.None;
-        private m_lifetime: Core.IComponentLifetime = null;
+        private m_lifetime: Core.IComponentLifetime = new Core.Lifetime.CCurrentScopeLifetime();
 
         private m_deferredCallback: CDeferredCallback = null;
 
-        private readonly m_activatingHandlers: System.TCallbackArray< ( sender: any, e: Core.CActivatingEventArgs<object> ) => void > = new System.TCallbackArray();
+        private m_activatingHandlers: System.TCallbackArray< ( sender: any, e: Core.CActivatingEventArgs<object> ) => void > = new System.TCallbackArray();
 
         public constructor( defaultService: Core.CService )
         {
@@ -81,13 +81,15 @@ namespace iberbar.Autofac.Builder
             this.m_lifetime = that.m_lifetime;
             this.m_sharing = that.m_sharing;
             this.m_services = this.CopyArray( that.m_services );
+            this.m_activatingHandlers = that.m_activatingHandlers.Copy();
         }
 
         private CopyArray<T>( src: T[] ): T[]
         {
             let dest = [];
-            for ( const temp of src )
+            for ( let i = 0; i < src.length; i ++ )
             {
+                let temp = src[ i ];
                 dest.push( temp );
             }
             return dest;

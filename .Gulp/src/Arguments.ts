@@ -95,7 +95,7 @@ export class CArgumnetsCollection implements IArgumentCollection
     //     if ( typeAttr.DeclaringType.IsEquivalentTo( Array ) )
     //     {
     //         findOne = true;
-    //         argumentType = typeAttr.GenericTypes.firstOrDefault();
+    //         argumentType = typeAttr.GenericTypes.FirstOrDefault();
     //     }
     //     else
     //     {
@@ -117,7 +117,7 @@ export class CArgumnetsCollection implements IArgumentCollection
 
     //     if ( findOne == true )
     //     {
-    //         pi.SetValue( collection, pv.firstOrDefault() );
+    //         pi.SetValue( collection, pv.FirstOrDefault() );
     //     }
     //     else
     //     {

@@ -6,11 +6,11 @@ export class CBabelHelper
     public GetCompiler()
     {
         let babelCompiler = gulpbabel({
-            presets: ['@babel/env'],
+            presets: ['@babel/preset-env'],
             plugins: [
-                "@babel/plugin-transform-for-of",
-                "@babel/plugin-transform-typeof-symbol"
-            ]
+                <any>["@babel/plugin-transform-for-of", { loost: true } ],
+                <any>["@babel/plugin-transform-typeof-symbol", { loost: true } ],
+            ],
         });
         return babelCompiler;
     }

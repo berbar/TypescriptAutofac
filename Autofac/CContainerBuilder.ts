@@ -101,8 +101,9 @@ namespace iberbar.Autofac
 
             this.m_wasBuilt = true;
 
-            for ( const callback of this.m_configurationCallbacks )
+            for ( let i = 0; i < this.m_configurationCallbacks.length; i ++ )
             {
+                let callback = this.m_configurationCallbacks[ i ];
                 callback.Callback.Execute( componentRegistry );
             }
         }

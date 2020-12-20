@@ -12,14 +12,15 @@ namespace iberbar.System.Metadata.Core
 
         AddAttribute( attribute: CAttribute ): void
         {
-            this.m_list.push( attribute );
+            this.m_list.splice( 0, 0, attribute );
         }
 
 
         GetAttributeOne<T extends CAttribute>( type: Reflection.CType ): T
         {
-            for ( const attribute of this.m_list )
+            for ( let i = 0; i < this.m_list.length; i ++ )
             {
+                let attribute = this.m_list[ i ];
                 if ( attribute.GetType().IsEquivalentTo( type ) )
                     return <T>attribute;
             }
@@ -29,8 +30,9 @@ namespace iberbar.System.Metadata.Core
         GetAttributes<T extends CAttribute>( type: Reflection.CType<T> ): T[]
         {
             let attributeList: T[] = [];
-            for ( const attribute of this.m_list )
+            for ( let i = 0; i < this.m_list.length; i ++ )
             {
+                let attribute = this.m_list[ i ];
                 if ( attribute.GetType().IsEquivalentTo( type ) )
                     attributeList.push( <T>attribute );
             }

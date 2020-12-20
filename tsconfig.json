@@ -9,9 +9,10 @@
         "composite": true,
         "declaration": true,
         "importHelpers": true,
+        "emitDecoratorMetadata": true,
         "lib": [
             "dom",
-            "es6",
+            "ES6"
         ]
     }
 }

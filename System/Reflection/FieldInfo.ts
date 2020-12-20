@@ -25,5 +25,7 @@ namespace iberbar.System.Reflection
         {
             return new Metadata.Core.CMetadataKeyForNamed( this.DeclaringType, UAttributeTarget.Field, this.Name );
         }
+
+        public abstract get FieldType(): CType;
     }
 }

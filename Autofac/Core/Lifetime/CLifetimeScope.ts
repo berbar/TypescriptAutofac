@@ -96,7 +96,7 @@ namespace iberbar.Autofac.Core.Lifetime
             let ret = this.TryResolveService( new CTypedService( type ), parameters );
             if ( ret.succeed == false )
             {
-                throw new Error( `Can't resolve instance of type (${type.GetJsConstructor().name})` );
+                throw new Error( `Can't resolve instance of type (${type.GetNickname()})` );
             }
             return <TService>ret.instance;
         }
@@ -111,12 +111,22 @@ namespace iberbar.Autofac.Core.Lifetime
             return <TService>ret.instance;
         }
 
-        ResolveKeyed<TService extends object, TKey>( type: System.Reflection.CType<TService>, key: TKey, ...parameters: CParameter[] ): TService
+        public ResolveKeyed<TService extends object, TKey>( type: System.Reflection.CType<TService>, key: TKey, ...parameters: CParameter[] ): TService
         {
             let ret = this.TryResolveService( new CKeyedService( key, type ), parameters );
             if ( ret.succeed == false )
             {
-                throw new Error();
+                throw new Error( `Can't resolve instance of type (${type.GetNickname()}) with key<${key.toString()}>` );
+            }
+            return <TService>ret.instance;
+        }
+
+        public TryResolveKeyed<TService extends object, TKey>( type: System.Reflection.CType<TService>, key: TKey, ...parameters: CParameter[] ): TService
+        {
+            let ret = this.TryResolveService( new CKeyedService( key, type ), parameters );
+            if ( ret.succeed == false )
+            {
+                return null;
             }
             return <TService>ret.instance;
         }

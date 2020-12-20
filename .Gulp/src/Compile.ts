@@ -29,7 +29,7 @@ export function GetCompileTasks( projectNames?: string | ReadonlyArray< string >
         {
             for ( const n of projectNames )
             {
-                tasks.push( "compile-", n );
+                tasks.push( "compile-" + n );
             }
         }
     }
@@ -42,15 +42,25 @@ export function DefineCompileTasks( projects: ReadonlyArray< ProjectNode >, env:
     for ( const projectNode of projects )
     {
         let taskName = GetCompileTaskName( projectNode.name );
+
         projectNode.tsProject.options.outFile = path.resolve( env.DirBin, projectNode.name, "index.js" );
+        // if ( env.CompileOptions.EmitDeclarationOnly == true )
+        // {
+        //     projectNode.tsProject.options.emitDeclarationOnly = true;
+        // }
+
         gulp.task( taskName, function()
         {
             let taskCore = projectNode.tsProject.src();
-            if ( env.CompileOptions.SourceMaps == true )
-                taskCore = taskCore.pipe( gulpsourcemaps.init() )
+
+            if ( env.CompileOptions.EmitDeclarationOnly == false && env.CompileOptions.SourceMaps == true )
+                taskCore = taskCore.pipe( gulpsourcemaps.init() );
+
             taskCore = taskCore.pipe( projectNode.tsProject( gulpts.reporter.defaultReporter() ) )
-            if ( env.CompileOptions.SourceMaps == true )
+
+            if ( env.CompileOptions.EmitDeclarationOnly == false && env.CompileOptions.SourceMaps == true )
                 taskCore = taskCore.pipe( gulpsourcemaps.write( { sourceRoot: path.resolve( env.DirBin, projectNode.name ) }))
+
             taskCore = taskCore.pipe( gulp.dest( "./" ) );
             return taskCore;
         });

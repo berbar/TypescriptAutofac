@@ -6,6 +6,11 @@ namespace iberbar.System.Reflection
 {
     export abstract class CPropertyInfo extends CMemberInfo
     {
+        /**
+         * Gets the type of this property
+         * 
+         * 属性的类型
+         */
         public abstract get PropertyType(): CType;
 
         public abstract SetValue( obj: any, value: any ): void;

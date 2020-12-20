@@ -58,6 +58,11 @@ namespace iberbar.Autofac.Core
             return this.m_rootLifetimeScope.ResolveKeyed( type, key, ...parameters );
         }
 
+        public TryResolveKeyed<TService extends object, TKey>(type: System.Reflection.CType<TService>, key: TKey, ...parameters: CParameter[]): TService
+        {
+            return this.m_rootLifetimeScope.TryResolveKeyed( type, key, ...parameters );
+        }
+
         public GetDisposer(): IDisposer
         {
             return this.m_rootLifetimeScope.GetDisposer();

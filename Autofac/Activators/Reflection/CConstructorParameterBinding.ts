@@ -27,8 +27,9 @@ namespace iberbar.Autofac.Activators.Reflection
             {
                 let pi = parameters[ i ];
                 let foundValue = false;
-                for ( const param of availableParameters )
+                for ( let j = 0; j < availableParameters.length; j ++ )
                 {
+                    let param = availableParameters[ j ];
                     let canSupplyValue = param.CanSupplyValue( pi, context );
                     if ( canSupplyValue.ret == true )
                     {
@@ -55,7 +56,10 @@ namespace iberbar.Autofac.Activators.Reflection
             let values: object[] = Array( this.m_valueRetrievers.length );
             for ( let i = 0; i < this.m_valueRetrievers.length; i ++ )
             {
-                values[ i ] = this.m_valueRetrievers[ i ]();
+                let m_valueRetrieverTemp = this.m_valueRetrievers[ i ];
+                if ( m_valueRetrieverTemp == null || m_valueRetrieverTemp == undefined )
+                    continue;
+                values[ i ] = m_valueRetrieverTemp();
             }
 
             try

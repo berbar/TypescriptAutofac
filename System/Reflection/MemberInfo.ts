@@ -24,6 +24,20 @@ namespace iberbar.System.Reflection
             return this.m_name;
         }
 
+        /**
+         * Gets the class that declares this member.
+         * 
+         * 声明此成员的Class类型，下面实例中的Text属性MemberInfo的DeclaringType返回 **Biubiu**
+         * 
+         * @returns The Type object for the class that declares this member.
+         * 
+         * ```js
+         * class Biubiu
+         * {
+         *      get Text(): string { return  ""; }
+         * }
+         * ```
+         */
         public get DeclaringType(): CType< object >
         {
             return TypeOf( this.m_prototype.constructor );

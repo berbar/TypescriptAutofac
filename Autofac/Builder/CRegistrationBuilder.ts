@@ -169,8 +169,11 @@ namespace iberbar.Autofac.Builder
 
         public WithParameters( parameters: ReadonlyArray< Core.CParameter > ): IRegistrationBuilder<TLimit>
         {
-            for ( const p of parameters )
+            for ( let i = 0; i < parameters.length; i ++ )
+            {
+                let p = parameters[ i ];
                 this.WithParameter( p );
+            }
             return this;
         }
 
@@ -184,8 +187,11 @@ namespace iberbar.Autofac.Builder
 
         public WithProperties( parameters: ReadonlyArray< Core.CParameter > ): IRegistrationBuilder<TLimit>
         {
-            for ( const p of parameters )
+            for ( let i = 0; i < parameters.length; i ++ )
+            {
+                let p = parameters[ i ];
                 this.WithProperty( p );
+            }
             return this;
         }
 

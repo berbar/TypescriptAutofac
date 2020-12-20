@@ -15,8 +15,6 @@
 
 namespace iberbar.System.Reflection
 {
-    
-
     /**
      * object 派生类的构造器类型
      */
@@ -73,11 +71,18 @@ namespace iberbar.System.Reflection
         return data;
     }
 
-    export abstract class CType< T extends object = object > implements ICustomAttributeProvider
+    export interface IDelayType< T extends object = object >
+    {
+        (): CType<T>;
+    };
+
+    export abstract class CType< T extends object = object > implements ICustomAttributeProvider, IEquatable< CType >
     {
         protected constructor()
         {
         }
+
+        public abstract Equals( other: CType ): boolean;
 
         public abstract GetJsPrototype< TExtra extends {} = {} >(): TypePrototype< T > & TExtra;
 
@@ -228,6 +233,11 @@ namespace iberbar.System.Reflection
             this.m_proto = proto;
         }
 
+        public Equals( other: CRuntimeType ): boolean
+        {
+            return this.IsEquivalentTo( dynamic_cast( other, CRuntimeType ) );
+        }
+
         public GetJsPrototype< TExtra extends {} = {} >(): TypePrototype< T > & TExtra
         {
             return < TypePrototype< T > & TExtra >this.m_proto;
@@ -347,8 +357,9 @@ namespace iberbar.System.Reflection
         {
             let array: CMethodInfo[] = [];
             let keys = Reflect.ownKeys( this.m_proto );
-            for ( const k of keys )
+            for ( let i = 0; i < keys.length; i ++ )
             {
+                const k = keys[ i ];
                 if ( k == "constructor" )
                     continue;
                 let descriptor = Reflect.getOwnPropertyDescriptor( this.m_proto, k );
@@ -392,8 +403,9 @@ namespace iberbar.System.Reflection
         {
             let array: CPropertyInfo[] = [];
             let keys = Reflect.ownKeys( this.m_proto );
-            for ( const k of keys )
+            for ( let i = 0; i < keys.length; i ++ )
             {
+                let k = keys[ i ];
                 if ( k == "constructor" )
                     continue;
                 let descriptor = Reflect.getOwnPropertyDescriptor( this.m_proto, k );
@@ -437,6 +449,8 @@ namespace iberbar.System.Reflection
          */
         public IsEquivalentTo( type: CRuntimeType | TypeConstructor<object> ): boolean
         {
+            if ( type == null )
+                return false;
             if ( typeof( type ) == "function" )
                 return type.prototype == this.m_proto;
             if ( type.m_proto === this.m_proto )
@@ -553,7 +567,19 @@ namespace iberbar.System.Reflection
         return new CRuntimeType( prototype );
     }
 
+    export function GetObjectType( o: any ): CType
+    {
+        return o.GetType();
+    }
 
+    /**
+     * 用于互相类型引用的场景
+     * @param delay 
+     */
+    export function TypeOfDelay< T extends object >( delay: () => TypeConstructor< T > | TypeConstructorAbstract< T > ): IDelayType< T >
+    {
+        return () => new CRuntimeType( delay().prototype );
+    }
 
     class CRuntimeConstructorInfo extends CConstructorInfo
     {
@@ -729,6 +755,14 @@ namespace iberbar.System.Reflection
         public constructor( name: string, prototype: TypePrototype< object > )
         {
             super( name, prototype );
+        }
+
+        public get FieldType(): CType
+        {
+            let attr = this.GetCustomAttributeOne( TypeOf( CDeclaringTypeAttribute ) );
+            if ( attr == null )
+                return null;
+            return attr.DeclaringType;
         }
     }
 

@@ -1,3 +1,3 @@
 
 
-export { TypeOf, DeclaringType, __Callback };
+export { TypeOf, TypeOfDelay, GetObjectType, DeclaringType, __Callback };

@@ -28,8 +28,9 @@ namespace iberbar.System.Collections.Generic
 
         ContainKey(key: TKey): boolean
         {
-            for ( const n of this.m_data )
+            for ( let i = 0; i < this.m_data.length; i ++ )
             {
+                let n = this.m_data[ i ];
                 if ( this.m_comparer.Equals( n.key, key ) )
                     return true;
             }
@@ -43,8 +44,9 @@ namespace iberbar.System.Collections.Generic
 
         Get(key: TKey): TValue
         {
-            for ( const n of this.m_data )
+            for ( let i = 0; i < this.m_data.length; i ++ )
             {
+                let n = this.m_data[ i ];
                 if ( this.m_comparer.Equals( n.key, key ) )
                     return n.value;
             }
@@ -53,20 +55,14 @@ namespace iberbar.System.Collections.Generic
 
         Clear(): void
         {
-            // for ( const n of this.m_data )
-            // {
-            //     if ( n.value != null && (<any>n.value)[ "Dispose" ] != null )
-            //     {
-            //         (<any>n.value)[ "Dispose" ]();
-            //     }
-            // }
             this.m_data = [];
         }
 
         public Each( process: System.TCallback< ( key: TKey, value: TValue ) => void > ): void
         {
-            for ( const n of this.m_data )
+            for ( let i = 0; i < this.m_data.length; i ++ )
             {
+                let n = this.m_data[ i ];
                 process.Execute( n.key, n.value );
             }
         }

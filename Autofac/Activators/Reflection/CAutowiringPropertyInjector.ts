@@ -41,7 +41,7 @@ namespace iberbar.Autofac.Activators.Reflection
                     continue;
 
                 // let setParameter = propertyInfo.GetSetMethod().GetParameters()[ 0 ];
-                // let parameter = parameters.firstOrDefault( ( p ) => p.CanSupplyValue( setParameter, context ).ret == true );
+                // let parameter = parameters.FirstOrDefault( ( p ) => p.CanSupplyValue( setParameter, context ).ret == true );
                 // if ( parameter != null )
                 // {
                 // }
@@ -63,10 +63,8 @@ namespace iberbar.Autofac.Activators.Reflection
                     let propertyService = new Core.CTypedService( propertyType );
                     registration = context.ComponentRegistry.GetRegistration( propertyService );
                     if ( registration == null )
-                        throw new Error( `Can't resolve the instance of type (${propertyType.GetJsConstructor().name})` );
+                        continue;
                 }
-
-
 
                 let propertyValue: object = null;
                 try
@@ -85,8 +83,9 @@ namespace iberbar.Autofac.Activators.Reflection
         {
             let injectableProperties = [];
             let properties = instanceType.GetProperties();
-            for ( const pi of properties )
+            for ( let i = 0; i < properties.length; i ++ )
             {
+                let pi = properties[ i ];
                 if ( pi.CanWrite == false )
                     continue;
                 injectableProperties.push( pi );

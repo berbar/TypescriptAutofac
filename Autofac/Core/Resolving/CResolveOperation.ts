@@ -41,5 +41,10 @@ namespace iberbar.Autofac.Core.Resolving
             let instance = lookup.Execute();
             return instance;
         }
+
+        public TryResolveService( service: CService, parameters: CParameter[] ): { succeed: boolean, instance?: object }
+        {
+            return TryResolveService( this, service, parameters );
+        }
     }
 }

@@ -33,8 +33,9 @@ namespace iberbar.Autofac.Features.Scanning
         private static ScanAssemblies( assemblies: ReadonlyArray< System.Reflection.CAssembly >, componentRegistry: Core.IComponentRegistry, registrationBuilder: Builder.IRegistrationBuilder<object> ): void
         {
             let types: System.Reflection.CType[] = [];
-            for ( const assembly of assemblies )
+            for ( let i = 0; i < assemblies.length; i ++ )
             {
+                let assembly = assemblies[ i ];
                 types = types.concat( assembly.GetTypes() );
             }
             this.ScanTypes( types, componentRegistry, registrationBuilder );
@@ -44,11 +45,13 @@ namespace iberbar.Autofac.Features.Scanning
         {
             let activatorData: Builder.CScanningActivatorData = <Builder.CScanningActivatorData>registrationBuilder.ActivatorData;
             let filters = activatorData.Filters;
-            for ( const t of types )
+            for ( let i = 0; i < types.length; i ++ )
             {
+                let t = types[ i ];
                 let fit = true;
-                for ( const filterTemp of filters )
+                for ( let j = 0; j < filters.length; j ++ )
                 {
+                    let filterTemp = filters[ j ];
                     if ( filterTemp( t ) == false )
                     {
                         fit = false;
@@ -64,8 +67,9 @@ namespace iberbar.Autofac.Features.Scanning
 
                 scanned.RegisterData.CopyFrom( registrationBuilder.RegisterData, false );
 
-                for ( const action of activatorData.ConfigurationActions )
+                for ( let j = 0; j < activatorData.ConfigurationActions.length; j ++ )
                 {
+                    let action = activatorData.ConfigurationActions[ j ];
                     action( t, scanned );
                 }
 
@@ -82,8 +86,9 @@ namespace iberbar.Autofac.Features.Scanning
                 let mapped = serviceMapping( type );
                 let impl = (<Builder.CConcreteReflectionActivatorData>rb.ActivatorData).ImplementationType;
                 let applied: Core.CService[] = [];
-                for ( const s of mapped )
+                for ( let i = 0; i < mapped.length; i ++ )
                 {
+                    let s = mapped[ i ];
                     let c = <Core.IServiceWithType><any>s;
                     if ( c[ "GetServiceType" ] != undefined )
                     {

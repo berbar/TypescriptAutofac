@@ -41,8 +41,22 @@
 			"path": "Network.Socket.SignalR"
 		},
 		{
+			"name": "Network.Socket.Biubiu"
+			"path": "Network.Socket.Biubiu"
+		},
+		{
 			"name": "Test",
 			"path": "Test"
+		},
+		{
+			"path": "MVC"
+		},
+		{
+			"path": "MVC.KernelJquery"
+		}
+,
+		{
+			"path": "Math"
 		}
 	]
 }

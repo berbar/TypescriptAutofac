@@ -21,6 +21,7 @@ export interface ICompileOptions
     readonly Watch: boolean;
     readonly Platform: UCompilePlatform;
     readonly SourceMaps: boolean;
+    readonly EmitDeclarationOnly: boolean;
 }
 
 export interface IEnvs
@@ -41,19 +42,30 @@ class CCompileOptions implements ICompileOptions
     private m_watch: boolean = false;
     private m_platform: UCompilePlatform = null;
     private m_sourceMaps: boolean = null;
+    private m_emitDeclarationOnly: boolean = null;
 
     public constructor( argvCollection: IArgumentCollection )
     {
-        this.m_out = argvCollection.FindStrings( "out", true ).firstOrDefault();
-        this.m_projects = argvCollection.FindStrings( "projects", true ).firstOrDefault().split( "," );
+        this.m_out = argvCollection.FindStrings( "out", true ).FirstOrDefault();
+
+        this.m_projects = argvCollection.FindStrings( "projects", true ).FirstOrDefault().split( "," );
+
         this.m_watch = argvCollection.FindBoolean( "watch" );
-        this.m_platform = <any>argvCollection.FindStrings( "platform", false ).firstOrDefault();
+
+        this.m_platform = <any>argvCollection.FindStrings( "platform", false ).FirstOrDefault();
         if ( this.m_platform == null )
         {
             this.m_platform = UCompilePlatform.NodeJS;
         }
         this.m_platform = <any>this.m_platform.toLowerCase();
+
         this.m_sourceMaps = argvCollection.FindBoolean( "sourcemaps" );
+        if ( this.m_sourceMaps == null )
+            this.m_sourceMaps = false;
+
+        this.m_emitDeclarationOnly = argvCollection.FindBoolean( "emitDeclarationOnly" );
+        if ( this.m_emitDeclarationOnly == null )
+            this.m_emitDeclarationOnly = false;
     }
 
     public get Out(): string
@@ -81,6 +93,11 @@ class CCompileOptions implements ICompileOptions
         return this.m_sourceMaps;
     }
 
+    public get EmitDeclarationOnly(): boolean
+    {
+        return this.m_emitDeclarationOnly;
+    }
+
     public toString(): string
     {
         let options: ICompileOptions =
@@ -89,7 +106,8 @@ class CCompileOptions implements ICompileOptions
             Projects: this.Projects,
             Watch: this.Watch,
             Platform: this.Platform,
-            SourceMaps: this.SourceMaps
+            SourceMaps: this.SourceMaps,
+            EmitDeclarationOnly: this.EmitDeclarationOnly
         };
         return JSON.stringify( options, null, 4 );
     }
@@ -136,8 +154,8 @@ class CEnvs implements IEnvs
     {
         if ( fs.existsSync( this.m_dirDist ) )
             DeleteFolder( this.m_dirDist, false );
-        // if ( fs.existsSync( this.m_dirBin ) )
-        //     DeleteFolder( this.m_dirBin, false );
+        if ( fs.existsSync( this.m_dirBin ) )
+            DeleteFolder( this.m_dirBin, false );
     }
 
     public toString(): string

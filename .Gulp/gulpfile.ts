@@ -48,20 +48,48 @@ console.log( "--将要合并的导入文件列表" );
 console.log( importFiles );
 console.log( "\n" );
 
+
+
+var reload = false;
+var delay = 500;
+
+// function brsync_reload(done) { brsync.reload();                 queue_reset(done); }
+// function brsync_stream(done) { brsync.reload({ stream: true }); queue_reset(done); }
+
+// function queue_reload() { gulp.series(gulp.queue.concat(brsync_reload))(); }
+// function queue_stream() { gulp.series(gulp.queue.concat(brsync_stream))(); }
+// function queue_reset(done)  { gulp.queue = []; reload = false; done(); }
+
+// function queue_tasks(tasks, last) {
+//   reload = reload || last == brsync_reload;
+//   gulp.queue = gulp.queue || [];
+
+//   if (gulp.queue.length == 0)
+//     setTimeout(reload ? queue_reload : queue_stream, delay);
+
+//   gulp.queue = gulp.queue
+//     .concat(tasks.filter(task => !gulp.queue.some(queued => queued == task)));
+//   // console.log(gulp.queue);
+// }
+
 function WatchPartOf( projectName: string ): void
 {
-    const tasksMerge = Merge( envs, projectManager, importFiles, exportFiles );
-    const tasksCompile = Compile.GetCompileTasks( projectName );
-    const tasks = tasksCompile.concat( tasksMerge );
+    let projectChildren = projectManager.GetChildren( projectName );
+    let projectCompile = [ projectName ].concat( projectChildren );
+    console.log( "监控[%s]: %O", projectName, projectChildren );
+    let tasksCompile = Compile.GetCompileTasks( projectCompile );
+    let tasksMerge = Merge( envs, projectManager, importFiles, exportFiles );
+    let tasks = tasksCompile.concat( tasksMerge );
     let glops = path.resolve( envs.DirWorkspace, projectName, "**/*.ts" );
     gulpWatch( glops, gulp.series( tasks ) );
 }
 
 gulp.task( "watch", function()
 {
-    for ( const projectName of envs.CompileOptions.Projects )
+    let projectsAll = projectManager.GetProjects();
+    for ( const project of projectsAll )
     {
-        WatchPartOf( projectName );
+        WatchPartOf( project.name );
     }
 });
 

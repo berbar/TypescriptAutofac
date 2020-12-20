@@ -34,5 +34,16 @@ namespace iberbar.Autofac.Core.Resolving
             key: TKey,
             ...parameters: CParameter[]
         ): TService;
+
+        /**
+         * 获取实例
+         * @param type 依赖类型
+         * @param key 键名
+         */
+        TryResolveKeyed< TService extends object, TKey >(
+            type: System.Reflection.CType< TService >,
+            key: TKey,
+            ...parameters: CParameter[]
+        ): TService;
     }
 }

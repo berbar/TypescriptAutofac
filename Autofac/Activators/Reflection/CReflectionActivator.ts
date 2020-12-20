@@ -92,9 +92,10 @@ namespace iberbar.Autofac.Activators.Reflection
             if ( this.m_configuredProperties.length == 0 )
                 return;
 
-            let actualProperties = instance.GetType().GetProperties().where( ( pi ) => pi.CanWrite );
-            for ( let configuredProperty of this.m_configuredProperties )
+            let actualProperties = instance.GetType().GetProperties().Where( ( pi ) => pi.CanWrite );
+            for ( let i = 0; i < this.m_configuredProperties.length; i ++ )
             {
+                let configuredProperty = this.m_configuredProperties[ i ];
                 for ( let i = 0; i < actualProperties.length; i ++ )
                 {
                     let propertyInfo = actualProperties[ i ];

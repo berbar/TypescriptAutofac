@@ -39,12 +39,13 @@ namespace iberbar.System
         {
             if ( callback instanceof Array )
             {
-                for ( const c of callback )
+                for ( let i = 0; i < callback.length; i ++ )
                 {
-                    if ( typeof( c ) == "function" )
-                    this.callbacks.push( new TCallback( c ) );
-                else
-                    this.callbacks.push( c );
+                    let cb = callback[ i ];
+                    if ( typeof( cb ) == "function" )
+                        this.callbacks.push( new TCallback( cb ) );
+                    else
+                        this.callbacks.push( cb );
                 }
 
             }
@@ -61,13 +62,25 @@ namespace iberbar.System
         {
             if ( this.callbacks != null && this.callbacks.length > 0 )
             {
-                for ( const cb of this.callbacks )
+                for ( let i = 0; i < this.callbacks.length; i ++ )
                 {
+                    let cb = this.callbacks[ i ];
                     if ( cb == null )
                         continue;
                     cb.Execute( ...args );
                 }
             }
+        }
+
+        public Copy(): TCallbackArray< T >
+        {
+            let copycat = new TCallbackArray< T >();
+            for ( let i = 0; i < this.callbacks.length; i ++ )
+            {
+                let cb = this.callbacks[ i ];
+                copycat.callbacks.push( cb );
+            }
+            return copycat;
         }
     };
 

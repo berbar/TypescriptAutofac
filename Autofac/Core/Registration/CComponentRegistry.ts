@@ -62,8 +62,9 @@ namespace iberbar.Autofac.Core.Registration
         private AddRegistration( registration: IComponentRegistration, preserveDefaults: boolean, originatedFromSource: boolean = false ): void
         {
             let services = registration.Services;
-            for ( const s of services )
+            for ( let i = 0; i < services.length; i ++ )
             {
+                let s = services[ i ];
                 let info = this.GetServiceInfo( s );
                 info.AddImplementation( registration, preserveDefaults, originatedFromSource );
             }

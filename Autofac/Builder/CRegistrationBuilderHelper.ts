@@ -32,8 +32,10 @@ namespace iberbar.Autofac.Builder
         {
             let limitType = activator.GetLimitType();
             
-            for ( const ts of services )
+            for ( let i = 0; i < services.length; i ++ )
             {
+                let ts = services[ i ];
+
                 if ( ts.hasOwnProperty( "GetServiceType" ) == false )
                     continue;
                 

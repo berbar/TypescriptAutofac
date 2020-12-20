@@ -12,8 +12,9 @@ namespace iberbar.Autofac.Core
         
         Dispose(): void
         {
-            for ( const item of this.m_items )
+            for ( let i = 0; i < this.m_items.length; i ++ )
             {
+                let item = this.m_items[ i ];
                 item.Dispose();
             }
             this.m_items = null;
