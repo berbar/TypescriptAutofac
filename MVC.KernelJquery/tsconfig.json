@@ -1,0 +1,18 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        
+        "outFile": "../bin/MVC.KernelJquery/index.js",
+        "rootDir": "./Src"
+    },
+    "references": [
+        { "path": "../System" },
+        { "path": "../Autofac" },
+        { "path": "../MVC" }
+    ],
+    "include": [
+        "./Src/Attributes/**/*",
+        "./Src/Components/**/*",
+        "./Src/*",
+    ]
+}

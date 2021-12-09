@@ -1,0 +1,19 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        
+        "outFile": "../bin/MVC/index.js",
+        "rootDir": "./Src"
+    },
+    "references": [
+        { "path": "../System" },
+        { "path": "../Autofac"}
+    ],
+    "include": [
+        "./Src/Attributes/**/*",
+        "./Src/Registration/**/*",
+        "./Src/Core/**/*",
+        "./Src/*",
+        "./Src/Builder/**/*"
+    ]
+}
