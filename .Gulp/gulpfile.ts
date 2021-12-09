@@ -12,6 +12,16 @@ import "../System/JsArrayExtension";
 import { IEnvs, BuildEnvs } from "./src/Env";
 
 
+function MkdirRecurse( p: string ): void
+{
+    let dir = path.dirname( p );
+    if ( fs.existsSync( dir ) == false )
+    {
+        MkdirRecurse( dir );
+    }
+    fs.mkdirSync( p );
+}
+
 let envs: IEnvs = BuildEnvs();
 
 console.log( "--环境：" );
@@ -22,6 +32,10 @@ console.log( "--编译选项：" );
 console.log( envs.CompileOptions.toString() );
 console.log( "\n" );
 
+console.log( "--编译目标路径: " );
+console.log( envs.DirDist );
+console.log( "\n" );
+
 if ( envs.CompileOptions.Projects.length == 0 )
 {
     throw new Error( "no projects" );
@@ -29,9 +43,11 @@ if ( envs.CompileOptions.Projects.length == 0 )
 
 envs.Cleanup();
 if ( fs.existsSync( envs.DirBin ) == false )
-    fs.mkdirSync( envs.DirBin );
+    MkdirRecurse( envs.DirBin );
+    //fs.mkdirSync( envs.DirBin );
 if ( fs.existsSync( envs.DirDist ) == false )
-    fs.mkdirSync( envs.DirDist );
+    MkdirRecurse( envs.DirDist );
+    //fs.mkdirSync( envs.DirDist );
 
 let projectManager = new Project.CProjectManager( envs );
 const projects = projectManager.GetProjects();
